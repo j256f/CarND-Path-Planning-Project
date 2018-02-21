@@ -9,8 +9,13 @@
 #include "Eigen-3.3/Eigen/QR"
 #include "json.hpp"
 #include "spline.h"
+#include "PID.h"
 
 using namespace std;
+
+using namespace Eigen;
+typedef Matrix<double, Dynamic, 7, RowMajor > RowMatrixXi;
+
 
 // for convenience
 using json = nlohmann::json;
@@ -31,7 +36,7 @@ string hasData(string s) {
     return "";
   } else if (b1 != string::npos && b2 != string::npos) {
     return s.substr(b1, b2 - b1 + 2);
-  }
+  } 
   return "";
 }
 
@@ -164,8 +169,13 @@ vector<double> getXY(double s, double d, const vector<double> &maps_s, const vec
 
 }
 
+
+
 int main() {
   uWS::Hub h;
+
+
+
 
   // Load up map values for waypoint's x,y,s and d normalized normal vectors
   vector<double> map_waypoints_x;
@@ -205,7 +215,7 @@ int main() {
   int lane = 1;        
 
   // velocity set point       
-  double ref_vel = .0; // mph 
+  double ref_vel = .0; // mph
 
   h.onMessage([&lane,&map_waypoints_x,&map_waypoints_y,&map_waypoints_s,&map_waypoints_dx,&map_waypoints_dy,&ref_vel](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
                      uWS::OpCode opCode) {
@@ -234,6 +244,9 @@ int main() {
           	double car_yaw = j[1]["yaw"];
           	double car_speed = j[1]["speed"];
 
+                double car_b_speed = .0;
+                double car_b_s = 0.0;
+
           	// Previous path data given to the Planner
           	auto previous_path_x = j[1]["previous_path_x"];
           	auto previous_path_y = j[1]["previous_path_y"];
@@ -242,8 +255,185 @@ int main() {
           	double end_path_d = j[1]["end_path_d"];
 
           	// Sensor Fusion Data, a list of all other cars on the same side of the road.
-          	auto sensor_fusion = j[1]["sensor_fusion"];
+          	
+                vector<vector<double>> sensor_fusion = j[1]["sensor_fusion"];
 
+
+/*              
+//                RowMatrixXi sefu; 
+
+
+
+
+                MatrixXd sefu(sensor_fusion.size(),7);
+
+
+                sefu << sensor_fusion[0][0], sensor_fusion[0][1], sensor_fusion[0][2], sensor_fusion[0][3], sensor_fusion[0][4], sensor_fusion[0][5], sensor_fusion[0][6],
+                        sensor_fusion[1][0], sensor_fusion[1][1], sensor_fusion[1][2], sensor_fusion[1][3], sensor_fusion[1][4], sensor_fusion[1][5], sensor_fusion[1][6],
+                        sensor_fusion[2][0], sensor_fusion[2][1], sensor_fusion[2][2], sensor_fusion[2][3], sensor_fusion[2][4], sensor_fusion[2][5], sensor_fusion[2][6],
+                        sensor_fusion[3][0], sensor_fusion[3][1], sensor_fusion[3][2], sensor_fusion[3][3], sensor_fusion[3][4], sensor_fusion[3][5], sensor_fusion[3][6],
+                        sensor_fusion[4][0], sensor_fusion[4][1], sensor_fusion[4][2], sensor_fusion[4][3], sensor_fusion[4][4], sensor_fusion[4][5], sensor_fusion[4][6],
+                        sensor_fusion[5][0], sensor_fusion[5][1], sensor_fusion[5][2], sensor_fusion[5][3], sensor_fusion[5][4], sensor_fusion[5][5], sensor_fusion[5][6],
+                        sensor_fusion[6][0], sensor_fusion[6][1], sensor_fusion[6][2], sensor_fusion[6][3], sensor_fusion[6][4], sensor_fusion[6][5], sensor_fusion[6][6],
+                        sensor_fusion[7][0], sensor_fusion[7][1], sensor_fusion[7][2], sensor_fusion[7][3], sensor_fusion[7][4], sensor_fusion[7][5], sensor_fusion[7][6],
+                        sensor_fusion[8][0], sensor_fusion[8][1], sensor_fusion[8][2], sensor_fusion[8][3], sensor_fusion[8][4], sensor_fusion[8][5], sensor_fusion[8][6],
+                        sensor_fusion[9][0], sensor_fusion[9][1], sensor_fusion[9][2], sensor_fusion[9][3], sensor_fusion[9][4], sensor_fusion[9][5], sensor_fusion[9][6],
+                        sensor_fusion[10][0], sensor_fusion[10][1], sensor_fusion[10][2], sensor_fusion[10][3], sensor_fusion[10][4], sensor_fusion[10][5], sensor_fusion[10][6],
+                        sensor_fusion[11][0], sensor_fusion[11][1], sensor_fusion[11][2], sensor_fusion[11][3], sensor_fusion[11][4], sensor_fusion[11][5], sensor_fusion[11][6];
+ 
+
+
+                std::ptrdiff_t i, j;
+
+                double thisone= sefu.minCoeff(&i, &j);
+                  
+                VectorXd this_vector(7);
+
+                this_vector = sefu.row(i);  
+               
+                std::cout << this_vector << std::endl;
+
+*/              
+
+                //auto Veh_ahead(sensor_fusion.size());
+                //std::vector<vector<double>> Veh_ahead(sensor_fusion.size());
+                
+
+                // Get sefu_VehAhead from sensor_fusion
+                // a vector of vectors with all vehicles at 300 meters ahead
+
+                vector<vector<double>> sefu_VehAhead = j[1]["sensor_fusion"];
+                     
+                int p = 0;     
+                
+                for(int i = 0; i < sensor_fusion.size();i++)
+                {
+                    
+                    sefu_VehAhead[i][0] = 0.0;
+                    sefu_VehAhead[i][1] = 0.0;
+                    sefu_VehAhead[i][2] = 0.0;
+                    sefu_VehAhead[i][3] = 0.0;
+                    sefu_VehAhead[i][4] = 0.0;
+                    sefu_VehAhead[i][5] = 0.0;
+                    sefu_VehAhead[i][6] = 0.0;
+                    
+                    if (((sensor_fusion[i][5] - car_s) < 400.0) && ((sensor_fusion[i][5] - car_s) > 0))
+                        {
+                                         
+                        sefu_VehAhead[p][0] = sensor_fusion[i][0];
+                        sefu_VehAhead[p][1] = sensor_fusion[i][1];
+                        sefu_VehAhead[p][2] = sensor_fusion[i][2];
+                        sefu_VehAhead[p][3] = sensor_fusion[i][3];
+                        sefu_VehAhead[p][4] = sensor_fusion[i][4];
+                        sefu_VehAhead[p][5] = sensor_fusion[i][5];
+                        sefu_VehAhead[p][6] = sensor_fusion[i][6];
+                        p++;
+                        
+                        }
+                }
+
+                
+                // Get VehAhead_same from sefu_VehAhead
+                // a vector of vectors with all vehicles at 300 meters ahead and on same lane
+
+                vector<vector<double>> VehAhead_SameLane = j[1]["sensor_fusion"];
+                     
+                p = 0;     
+                
+                for(int i = 0; i < sensor_fusion.size();i++)
+                {
+                    
+                    VehAhead_SameLane[i][0] = 0.0;
+                    VehAhead_SameLane[i][1] = 0.0;
+                    VehAhead_SameLane[i][2] = 0.0;
+                    VehAhead_SameLane[i][3] = 0.0;
+                    VehAhead_SameLane[i][4] = 0.0;
+                    VehAhead_SameLane[i][5] = 0.0;
+                    VehAhead_SameLane[i][6] = 0.0;
+                    
+                    if ((abs(sefu_VehAhead[i][6] - car_d) < 2.0))
+                        {
+                                         
+                        VehAhead_SameLane[p][0] = sefu_VehAhead[i][0];
+                        VehAhead_SameLane[p][1] = sefu_VehAhead[i][1];
+                        VehAhead_SameLane[p][2] = sefu_VehAhead[i][2];
+                        VehAhead_SameLane[p][3] = sefu_VehAhead[i][3];
+                        VehAhead_SameLane[p][4] = sefu_VehAhead[i][4];
+                        VehAhead_SameLane[p][5] = sefu_VehAhead[i][5];
+                        VehAhead_SameLane[p][6] = sefu_VehAhead[i][6];
+                        p++;
+                         
+                        }
+                }
+
+               
+ 
+                // Get SameLane_abc from VehAhead_SameLane
+                // a vector with telemetry of the first 3 vehicle in order of appereance 
+ 
+
+                vector<vector<double>> SameLane_abc(3,vector<double>(7));
+
+ 
+                if((VehAhead_SameLane[1][5] == 0) && (VehAhead_SameLane[2][5] == 0))
+                    for(int i=0; i < 7 ; i++) SameLane_abc[0][i] = VehAhead_SameLane[0][i];   
+                else  if(VehAhead_SameLane[2][5] == 0)
+                           {    
+                           if(VehAhead_SameLane[0][5] < VehAhead_SameLane[1][5])
+                               {
+                               for(int i=0; i < 7 ; i++) SameLane_abc[0][i] = VehAhead_SameLane[0][i]; 
+                               for(int i=0; i < 7 ; i++) SameLane_abc[1][i] = VehAhead_SameLane[1][i];
+                               }   
+                           else
+                               {  
+                               for(int i=0; i < 7 ; i++) SameLane_abc[0][i] = VehAhead_SameLane[1][i];
+                               for(int i=0; i < 7 ; i++) SameLane_abc[1][i] = VehAhead_SameLane[0][i]; 
+                               }  
+                           }    
+                       
+                else { 
+
+
+                      if((VehAhead_SameLane[0][5] < VehAhead_SameLane[1][5])  && 
+                         (VehAhead_SameLane[0][5] < VehAhead_SameLane[2][5]))   
+                         for(int i=0; i < 7 ; i++) SameLane_abc[0][i] = VehAhead_SameLane[0][i];   
+
+                      else if((VehAhead_SameLane[0][5] > VehAhead_SameLane[1][5]) &&
+                              (VehAhead_SameLane[0][5] > VehAhead_SameLane[2][5]))  
+                              for(int i=0; i < 7 ; i++) SameLane_abc[2][i] = VehAhead_SameLane[0][i];   
+
+                      else for(int i=0; i < 7 ; i++) SameLane_abc[1][i] = VehAhead_SameLane[0][i];   
+               
+
+                      if((VehAhead_SameLane[1][5] < VehAhead_SameLane[0][5])  && 
+                         (VehAhead_SameLane[1][5] < VehAhead_SameLane[2][5]))   
+                         for(int i=0; i < 7 ; i++) SameLane_abc[0][i] = VehAhead_SameLane[1][i];   
+
+                      else if((VehAhead_SameLane[1][5] > VehAhead_SameLane[0][5]) &&
+                              (VehAhead_SameLane[1][5] > VehAhead_SameLane[2][5]))  
+                              for(int i=0; i < 7 ; i++) SameLane_abc[2][i] = VehAhead_SameLane[1][i];   
+
+                      else for(int i=0; i < 7 ; i++) SameLane_abc[1][i] = VehAhead_SameLane[1][i];   
+
+
+                      if((VehAhead_SameLane[2][5] < VehAhead_SameLane[0][5])  && 
+                         (VehAhead_SameLane[2][5] < VehAhead_SameLane[1][5]))   
+                         for(int i=0; i < 7 ; i++) SameLane_abc[0][i] = VehAhead_SameLane[2][i];   
+
+                      else if((VehAhead_SameLane[2][5] > VehAhead_SameLane[0][5]) &&
+                             (VehAhead_SameLane[2][5] > VehAhead_SameLane[1][5]))  
+                             for(int i=0; i < 7 ; i++) SameLane_abc[2][i] = VehAhead_SameLane[2][i];   
+
+                      else for(int i=0; i < 7 ; i++) SameLane_abc[1][i] = VehAhead_SameLane[2][i];   
+                      }
+
+                cout << "SameLane_abc[0]" << SameLane_abc[0][5] << endl;   
+                cout << "SameLane_abc[1]" << SameLane_abc[1][5] << endl;   
+                cout << "SameLane_abc[2]" << SameLane_abc[2][5] << endl;   
+  
+                  
+
+  
                 int prev_size = previous_path_x.size();
 
 
@@ -255,51 +445,45 @@ int main() {
                 bool too_close = false;
   
 
-                for(int i = 0; i < sensor_fusion.size(); i++)
-                {
-                    float d = sensor_fusion[i][6];
-                    if(d<(2+4*lane+2) && d > (2+4*lane-2))
-                    {
-                       double vx = sensor_fusion[i][3];
-                       double vy = sensor_fusion[i][4];
-                       double check_speed = sqrt(vx*vx+vy*vy);
-                       double check_car_s = sensor_fusion[i][5];
-                       
-                       check_car_s+=((double)prev_size*0.02*check_speed);
-                       if((check_car_s > car_s) && ((check_car_s-car_s) < 30))
+                double a_vx = SameLane_abc[0][3];
+                double a_vy = SameLane_abc[0][4];
+                double a_v  = sqrt(a_vx*a_vx+a_vy*a_vy);
+                double a_s  = SameLane_abc[0][5];
+                a_s += ((double)prev_size*0.02*a_v);
+                
+                cout <<"diff = "<< a_s-car_s << endl;
+ 
+                if((a_s > car_s) && ((a_s-car_s) < 30))
                        {
 
                            //ref_vel = 29.5;
                            too_close = true;
+                           //close_car_speed = check_speed;
                            if (lane>0)
-                           {
+                           //{
                                lane=0;
-                           }  
+                           //}  
 
 
-                       } 
-
-
-                    }
-
-                }     
-
+                       }
                 if(too_close)
                 {
-                    ref_vel -= .224;
+                    //ref_vel -= .224;
+                     //std::cout << "this " << close_car_speed << std::endl;
+                    //ref_vel = close_car_speed;  
+                    //double diff_speed = car_speed - car_b_speed;
+
+              
+
+                    ref_vel -= 0.1;//diff_speed*0.03;      
+
+ 
                 }
                 else if(ref_vel<49.5)
                 {
-                    ref_vel += .224; 
+                    ref_vel += 0.1;//.224; 
                 } 
 
-
-
-
-
-      
-
-       
 
 
 
@@ -431,7 +615,7 @@ int main() {
                     //next_x_vals.push_back(car_x+(dist_inc*i)*cos(deg2rad(car_yaw)));
                     //next_y_vals.push_back(car_y+(dist_inc*i)*sin(deg2rad(car_yaw)));
                 }
-                */  
+                */
           	msgJson["next_x"] = next_x_vals;
           	msgJson["next_y"] = next_y_vals;
 
