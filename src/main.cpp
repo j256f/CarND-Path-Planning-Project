@@ -468,13 +468,6 @@ int main() {
                        }
                 if(too_close)
                 {
-                    //ref_vel -= .224;
-                     //std::cout << "this " << close_car_speed << std::endl;
-                    //ref_vel = close_car_speed;  
-                    //double diff_speed = car_speed - car_b_speed;
-
-              
-
                     ref_vel -= 0.1;//diff_speed*0.03;      
 
  
