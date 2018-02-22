@@ -410,9 +410,28 @@ int main() {
                 double car_a_v  = sqrt(car_a_vx*car_a_vx+car_a_vy*car_a_vy);
                 double car_a_s  = SameLane_abc[0][5];
                 
+
+                // gap that a vehicle following car a should keep  
+                //  
+                double car_a_gap = car_a_v * 0.4697 * 2.0 ; // 2 seconds in distance
+
+                double car_a_rear = car_a_s - car_a_gap; // s where should car x be   
+
+                double car_xa_overlap = car_a_rear - car_x_s ;
+
+                // set ref_vel so that vehicle oscillates 15 meters around gap          
+       
+                if (((car_a_rear == 0) && (ref_vel <45)) || ((car_xa_overlap > 15)&&(ref_vel<45))) ref_vel += 0.1;
+                else if (car_xa_overlap < 15) ref_vel += (0.1 * car_xa_overlap/15); 
+                
+
+                
+
+/*
+                
                 car_a_s += ((double)prev_size*0.02*car_a_v);
                 
-                cout <<"diff = "<< car_a_s-car_x_s << endl;
+                //cout <<"diff = "<< car_a_s-car_x_s << endl;
  
                 if((car_a_s > car_x_s) && ((car_a_s-car_x_s) < 30))
                        {
@@ -438,7 +457,7 @@ int main() {
                     ref_vel += 0.1;//.224; 
                 } 
 
-
+*/
 
 
                 // Create list of widely space waypoints
