@@ -237,15 +237,15 @@ int main() {
           // j[1] is the data JSON object
           
         	// Main car's localization Data
-          	double car_x = j[1]["x"];
-          	double car_y = j[1]["y"];
-          	double car_s = j[1]["s"];
-          	double car_d = j[1]["d"];
-          	double car_yaw = j[1]["yaw"];
-          	double car_speed = j[1]["speed"];
+          	double car_x_x = j[1]["x"];
+          	double car_x_y = j[1]["y"];
+          	double car_x_s = j[1]["s"];
+          	double car_x_d = j[1]["d"];
+          	double car_x_yaw = j[1]["yaw"];
+          	double car_x_speed = j[1]["speed"];
 
-                double car_b_speed = .0;
-                double car_b_s = 0.0;
+                //double car_a_speed = .0;
+                //double car_a_s = 0.0;
 
           	// Previous path data given to the Planner
           	auto previous_path_x = j[1]["previous_path_x"];
@@ -257,47 +257,7 @@ int main() {
           	// Sensor Fusion Data, a list of all other cars on the same side of the road.
           	
                 vector<vector<double>> sensor_fusion = j[1]["sensor_fusion"];
-
-
-/*              
-//                RowMatrixXi sefu; 
-
-
-
-
-                MatrixXd sefu(sensor_fusion.size(),7);
-
-
-                sefu << sensor_fusion[0][0], sensor_fusion[0][1], sensor_fusion[0][2], sensor_fusion[0][3], sensor_fusion[0][4], sensor_fusion[0][5], sensor_fusion[0][6],
-                        sensor_fusion[1][0], sensor_fusion[1][1], sensor_fusion[1][2], sensor_fusion[1][3], sensor_fusion[1][4], sensor_fusion[1][5], sensor_fusion[1][6],
-                        sensor_fusion[2][0], sensor_fusion[2][1], sensor_fusion[2][2], sensor_fusion[2][3], sensor_fusion[2][4], sensor_fusion[2][5], sensor_fusion[2][6],
-                        sensor_fusion[3][0], sensor_fusion[3][1], sensor_fusion[3][2], sensor_fusion[3][3], sensor_fusion[3][4], sensor_fusion[3][5], sensor_fusion[3][6],
-                        sensor_fusion[4][0], sensor_fusion[4][1], sensor_fusion[4][2], sensor_fusion[4][3], sensor_fusion[4][4], sensor_fusion[4][5], sensor_fusion[4][6],
-                        sensor_fusion[5][0], sensor_fusion[5][1], sensor_fusion[5][2], sensor_fusion[5][3], sensor_fusion[5][4], sensor_fusion[5][5], sensor_fusion[5][6],
-                        sensor_fusion[6][0], sensor_fusion[6][1], sensor_fusion[6][2], sensor_fusion[6][3], sensor_fusion[6][4], sensor_fusion[6][5], sensor_fusion[6][6],
-                        sensor_fusion[7][0], sensor_fusion[7][1], sensor_fusion[7][2], sensor_fusion[7][3], sensor_fusion[7][4], sensor_fusion[7][5], sensor_fusion[7][6],
-                        sensor_fusion[8][0], sensor_fusion[8][1], sensor_fusion[8][2], sensor_fusion[8][3], sensor_fusion[8][4], sensor_fusion[8][5], sensor_fusion[8][6],
-                        sensor_fusion[9][0], sensor_fusion[9][1], sensor_fusion[9][2], sensor_fusion[9][3], sensor_fusion[9][4], sensor_fusion[9][5], sensor_fusion[9][6],
-                        sensor_fusion[10][0], sensor_fusion[10][1], sensor_fusion[10][2], sensor_fusion[10][3], sensor_fusion[10][4], sensor_fusion[10][5], sensor_fusion[10][6],
-                        sensor_fusion[11][0], sensor_fusion[11][1], sensor_fusion[11][2], sensor_fusion[11][3], sensor_fusion[11][4], sensor_fusion[11][5], sensor_fusion[11][6];
- 
-
-
-                std::ptrdiff_t i, j;
-
-                double thisone= sefu.minCoeff(&i, &j);
-                  
-                VectorXd this_vector(7);
-
-                this_vector = sefu.row(i);  
                
-                std::cout << this_vector << std::endl;
-
-*/              
-
-                //auto Veh_ahead(sensor_fusion.size());
-                //std::vector<vector<double>> Veh_ahead(sensor_fusion.size());
-                
 
                 // Get sefu_VehAhead from sensor_fusion
                 // a vector of vectors with all vehicles at 300 meters ahead
@@ -317,7 +277,7 @@ int main() {
                     sefu_VehAhead[i][5] = 0.0;
                     sefu_VehAhead[i][6] = 0.0;
                     
-                    if (((sensor_fusion[i][5] - car_s) < 400.0) && ((sensor_fusion[i][5] - car_s) > 0))
+                    if (((sensor_fusion[i][5] - car_x_s) < 400.0) && ((sensor_fusion[i][5] - car_x_s) > 0))
                         {
                                          
                         sefu_VehAhead[p][0] = sensor_fusion[i][0];
@@ -351,7 +311,7 @@ int main() {
                     VehAhead_SameLane[i][5] = 0.0;
                     VehAhead_SameLane[i][6] = 0.0;
                     
-                    if ((abs(sefu_VehAhead[i][6] - car_d) < 2.0))
+                    if ((abs(sefu_VehAhead[i][6] - car_x_d) < 2.0))
                         {
                                          
                         VehAhead_SameLane[p][0] = sefu_VehAhead[i][0];
@@ -439,21 +399,22 @@ int main() {
 
                 if (prev_size > 0)
                 {
-                   car_s = end_path_s;
+                   car_x_s = end_path_s;
                 }
 
                 bool too_close = false;
   
 
-                double a_vx = SameLane_abc[0][3];
-                double a_vy = SameLane_abc[0][4];
-                double a_v  = sqrt(a_vx*a_vx+a_vy*a_vy);
-                double a_s  = SameLane_abc[0][5];
-                a_s += ((double)prev_size*0.02*a_v);
+                double car_a_vx = SameLane_abc[0][3];
+                double car_a_vy = SameLane_abc[0][4];
+                double car_a_v  = sqrt(car_a_vx*car_a_vx+car_a_vy*car_a_vy);
+                double car_a_s  = SameLane_abc[0][5];
                 
-                cout <<"diff = "<< a_s-car_s << endl;
+                car_a_s += ((double)prev_size*0.02*car_a_v);
+                
+                cout <<"diff = "<< car_a_s-car_x_s << endl;
  
-                if((a_s > car_s) && ((a_s-car_s) < 30))
+                if((car_a_s > car_x_s) && ((car_a_s-car_x_s) < 30))
                        {
 
                            //ref_vel = 29.5;
@@ -485,22 +446,22 @@ int main() {
                 vector<double> ptsy;
 
                 // referencestarting point
-                double ref_x = car_x;
-                double ref_y = car_y;
-                double ref_yaw =  deg2rad(car_yaw);
+                double ref_x = car_x_x;
+                double ref_y = car_x_y;
+                double ref_yaw =  deg2rad(car_x_yaw);
                 
                 // if previous size is almost empty, use car as starting reference
 
                 if (prev_size < 2) 
                 {  
-                    double prev_car_x = car_x - cos(car_yaw);
-                    double prev_car_y = car_y - sin(car_yaw);
+                    double prev_car_x_x = car_x_x - cos(car_x_yaw);
+                    double prev_car_x_y = car_x_y - sin(car_x_yaw);
                       
-                    ptsx.push_back(prev_car_x);
-                    ptsx.push_back(car_x);
+                    ptsx.push_back(prev_car_x_x);
+                    ptsx.push_back(car_x_x);
                     
-                    ptsy.push_back(prev_car_y);
-                    ptsy.push_back(car_y);
+                    ptsy.push_back(prev_car_x_y);
+                    ptsy.push_back(car_x_y);
                     
                 }
 
@@ -522,9 +483,9 @@ int main() {
                 }
 
 
-                vector<double> next_mp0 = getXY(car_s+30,(2+4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);  
-                vector<double> next_mp1 = getXY(car_s+60,(2+4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);  
-                vector<double> next_mp2 = getXY(car_s+90,(2+4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);  
+                vector<double> next_mp0 = getXY(car_x_s+30,(2+4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);  
+                vector<double> next_mp1 = getXY(car_x_s+60,(2+4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);  
+                vector<double> next_mp2 = getXY(car_x_s+90,(2+4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);  
 
                 ptsx.push_back(next_mp0[0]);
                 ptsx.push_back(next_mp1[0]);
