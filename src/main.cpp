@@ -259,68 +259,68 @@ int main() {
                 vector<vector<double>> sensor_fusion = j[1]["sensor_fusion"];
                
 
-                // Get sefu_VehAhead from sensor_fusion
+                // Get sefu_OneTwoThree from sensor_fusion
                 // a vector of vectors with all vehicles at 300 meters ahead
 
-                vector<vector<double>> sefu_VehAhead = j[1]["sensor_fusion"];
+                vector<vector<double>> sefu_OneTwoThree = j[1]["sensor_fusion"];
                      
                 int p = 0;     
                 
                 for(int i = 0; i < sensor_fusion.size();i++)
                 {
                     
-                    sefu_VehAhead[i][0] = 0.0;
-                    sefu_VehAhead[i][1] = 0.0;
-                    sefu_VehAhead[i][2] = 0.0;
-                    sefu_VehAhead[i][3] = 0.0;
-                    sefu_VehAhead[i][4] = 0.0;
-                    sefu_VehAhead[i][5] = 0.0;
-                    sefu_VehAhead[i][6] = 0.0;
+                    sefu_OneTwoThree[i][0] = 0.0;
+                    sefu_OneTwoThree[i][1] = 0.0;
+                    sefu_OneTwoThree[i][2] = 0.0;
+                    sefu_OneTwoThree[i][3] = 0.0;
+                    sefu_OneTwoThree[i][4] = 0.0;
+                    sefu_OneTwoThree[i][5] = 0.0;
+                    sefu_OneTwoThree[i][6] = 0.0;
                     
                     if (((sensor_fusion[i][5] - car_x_s) < 400.0) && ((sensor_fusion[i][5] - car_x_s) > 0))
                         {
                                          
-                        sefu_VehAhead[p][0] = sensor_fusion[i][0];
-                        sefu_VehAhead[p][1] = sensor_fusion[i][1];
-                        sefu_VehAhead[p][2] = sensor_fusion[i][2];
-                        sefu_VehAhead[p][3] = sensor_fusion[i][3];
-                        sefu_VehAhead[p][4] = sensor_fusion[i][4];
-                        sefu_VehAhead[p][5] = sensor_fusion[i][5];
-                        sefu_VehAhead[p][6] = sensor_fusion[i][6];
+                        sefu_OneTwoThree[p][0] = sensor_fusion[i][0];
+                        sefu_OneTwoThree[p][1] = sensor_fusion[i][1];
+                        sefu_OneTwoThree[p][2] = sensor_fusion[i][2];
+                        sefu_OneTwoThree[p][3] = sensor_fusion[i][3];
+                        sefu_OneTwoThree[p][4] = sensor_fusion[i][4];
+                        sefu_OneTwoThree[p][5] = sensor_fusion[i][5];
+                        sefu_OneTwoThree[p][6] = sensor_fusion[i][6];
                         p++;
                         
                         }
                 }
 
                 
-                // Get VehAhead_same from sefu_VehAhead
+                // Get VehAhead_same from sefu_OneTwoThree
                 // a vector of vectors with all vehicles at 300 meters ahead and on same lane
 
-                vector<vector<double>> VehAhead_SameLane = j[1]["sensor_fusion"];
+                vector<vector<double>> OneTwoThree_Two = j[1]["sensor_fusion"];
                      
                 p = 0;     
                 
                 for(int i = 0; i < sensor_fusion.size();i++)
                 {
                     
-                    VehAhead_SameLane[i][0] = 0.0;
-                    VehAhead_SameLane[i][1] = 0.0;
-                    VehAhead_SameLane[i][2] = 0.0;
-                    VehAhead_SameLane[i][3] = 0.0;
-                    VehAhead_SameLane[i][4] = 0.0;
-                    VehAhead_SameLane[i][5] = 0.0;
-                    VehAhead_SameLane[i][6] = 0.0;
+                    OneTwoThree_Two[i][0] = 0.0;
+                    OneTwoThree_Two[i][1] = 0.0;
+                    OneTwoThree_Two[i][2] = 0.0;
+                    OneTwoThree_Two[i][3] = 0.0;
+                    OneTwoThree_Two[i][4] = 0.0;
+                    OneTwoThree_Two[i][5] = 0.0;
+                    OneTwoThree_Two[i][6] = 0.0;
                     
-                    if ((abs(sefu_VehAhead[i][6] - car_x_d) < 2.0))
+                    if ((abs(sefu_OneTwoThree[i][6] - car_x_d) < 2.0))
                         {
                                          
-                        VehAhead_SameLane[p][0] = sefu_VehAhead[i][0];
-                        VehAhead_SameLane[p][1] = sefu_VehAhead[i][1];
-                        VehAhead_SameLane[p][2] = sefu_VehAhead[i][2];
-                        VehAhead_SameLane[p][3] = sefu_VehAhead[i][3];
-                        VehAhead_SameLane[p][4] = sefu_VehAhead[i][4];
-                        VehAhead_SameLane[p][5] = sefu_VehAhead[i][5];
-                        VehAhead_SameLane[p][6] = sefu_VehAhead[i][6];
+                        OneTwoThree_Two[p][0] = sefu_OneTwoThree[i][0];
+                        OneTwoThree_Two[p][1] = sefu_OneTwoThree[i][1];
+                        OneTwoThree_Two[p][2] = sefu_OneTwoThree[i][2];
+                        OneTwoThree_Two[p][3] = sefu_OneTwoThree[i][3];
+                        OneTwoThree_Two[p][4] = sefu_OneTwoThree[i][4];
+                        OneTwoThree_Two[p][5] = sefu_OneTwoThree[i][5];
+                        OneTwoThree_Two[p][6] = sefu_OneTwoThree[i][6];
                         p++;
                          
                         }
@@ -328,68 +328,68 @@ int main() {
 
                
  
-                // Get SameLane_abc from VehAhead_SameLane
+                // Get Two_abc from OneTwoThree_Two
                 // a vector with telemetry of the first 3 vehicle in order of appereance 
  
 
-                vector<vector<double>> SameLane_abc(3,vector<double>(7));
+                vector<vector<double>> Two_abc(3,vector<double>(7));
 
  
-                if((VehAhead_SameLane[1][5] == 0) && (VehAhead_SameLane[2][5] == 0))
-                    for(int i=0; i < 7 ; i++) SameLane_abc[0][i] = VehAhead_SameLane[0][i];   
-                else  if(VehAhead_SameLane[2][5] == 0)
+                if((OneTwoThree_Two[1][5] == 0) && (OneTwoThree_Two[2][5] == 0))
+                    for(int i=0; i < 7 ; i++) Two_abc[0][i] = OneTwoThree_Two[0][i];   
+                else  if(OneTwoThree_Two[2][5] == 0)
                            {    
-                           if(VehAhead_SameLane[0][5] < VehAhead_SameLane[1][5])
+                           if(OneTwoThree_Two[0][5] < OneTwoThree_Two[1][5])
                                {
-                               for(int i=0; i < 7 ; i++) SameLane_abc[0][i] = VehAhead_SameLane[0][i]; 
-                               for(int i=0; i < 7 ; i++) SameLane_abc[1][i] = VehAhead_SameLane[1][i];
+                               for(int i=0; i < 7 ; i++) Two_abc[0][i] = OneTwoThree_Two[0][i]; 
+                               for(int i=0; i < 7 ; i++) Two_abc[1][i] = OneTwoThree_Two[1][i];
                                }   
                            else
                                {  
-                               for(int i=0; i < 7 ; i++) SameLane_abc[0][i] = VehAhead_SameLane[1][i];
-                               for(int i=0; i < 7 ; i++) SameLane_abc[1][i] = VehAhead_SameLane[0][i]; 
+                               for(int i=0; i < 7 ; i++) Two_abc[0][i] = OneTwoThree_Two[1][i];
+                               for(int i=0; i < 7 ; i++) Two_abc[1][i] = OneTwoThree_Two[0][i]; 
                                }  
                            }    
                        
                 else { 
 
 
-                      if((VehAhead_SameLane[0][5] < VehAhead_SameLane[1][5])  && 
-                         (VehAhead_SameLane[0][5] < VehAhead_SameLane[2][5]))   
-                         for(int i=0; i < 7 ; i++) SameLane_abc[0][i] = VehAhead_SameLane[0][i];   
+                      if((OneTwoThree_Two[0][5] < OneTwoThree_Two[1][5])  && 
+                         (OneTwoThree_Two[0][5] < OneTwoThree_Two[2][5]))   
+                         for(int i=0; i < 7 ; i++) Two_abc[0][i] = OneTwoThree_Two[0][i];   
 
-                      else if((VehAhead_SameLane[0][5] > VehAhead_SameLane[1][5]) &&
-                              (VehAhead_SameLane[0][5] > VehAhead_SameLane[2][5]))  
-                              for(int i=0; i < 7 ; i++) SameLane_abc[2][i] = VehAhead_SameLane[0][i];   
+                      else if((OneTwoThree_Two[0][5] > OneTwoThree_Two[1][5]) &&
+                              (OneTwoThree_Two[0][5] > OneTwoThree_Two[2][5]))  
+                              for(int i=0; i < 7 ; i++) Two_abc[2][i] = OneTwoThree_Two[0][i];   
 
-                      else for(int i=0; i < 7 ; i++) SameLane_abc[1][i] = VehAhead_SameLane[0][i];   
+                      else for(int i=0; i < 7 ; i++) Two_abc[1][i] = OneTwoThree_Two[0][i];   
                
 
-                      if((VehAhead_SameLane[1][5] < VehAhead_SameLane[0][5])  && 
-                         (VehAhead_SameLane[1][5] < VehAhead_SameLane[2][5]))   
-                         for(int i=0; i < 7 ; i++) SameLane_abc[0][i] = VehAhead_SameLane[1][i];   
+                      if((OneTwoThree_Two[1][5] < OneTwoThree_Two[0][5])  && 
+                         (OneTwoThree_Two[2][5] < OneTwoThree_Two[2][5]))   
+                         for(int i=0; i < 7 ; i++) Two_abc[0][i] = OneTwoThree_Two[1][i];   
 
-                      else if((VehAhead_SameLane[1][5] > VehAhead_SameLane[0][5]) &&
-                              (VehAhead_SameLane[1][5] > VehAhead_SameLane[2][5]))  
-                              for(int i=0; i < 7 ; i++) SameLane_abc[2][i] = VehAhead_SameLane[1][i];   
+                      else if((OneTwoThree_Two[1][5] > OneTwoThree_Two[0][5]) &&
+                              (OneTwoThree_Two[1][5] > OneTwoThree_Two[2][5]))  
+                              for(int i=0; i < 7 ; i++) Two_abc[2][i] = OneTwoThree_Two[1][i];   
 
-                      else for(int i=0; i < 7 ; i++) SameLane_abc[1][i] = VehAhead_SameLane[1][i];   
+                      else for(int i=0; i < 7 ; i++) Two_abc[1][i] = OneTwoThree_Two[1][i];   
 
 
-                      if((VehAhead_SameLane[2][5] < VehAhead_SameLane[0][5])  && 
-                         (VehAhead_SameLane[2][5] < VehAhead_SameLane[1][5]))   
-                         for(int i=0; i < 7 ; i++) SameLane_abc[0][i] = VehAhead_SameLane[2][i];   
+                      if((OneTwoThree_Two[2][5] < OneTwoThree_Two[0][5])  && 
+                         (OneTwoThree_Two[2][5] < OneTwoThree_Two[1][5]))   
+                         for(int i=0; i < 7 ; i++) Two_abc[0][i] = OneTwoThree_Two[2][i];   
 
-                      else if((VehAhead_SameLane[2][5] > VehAhead_SameLane[0][5]) &&
-                             (VehAhead_SameLane[2][5] > VehAhead_SameLane[1][5]))  
-                             for(int i=0; i < 7 ; i++) SameLane_abc[2][i] = VehAhead_SameLane[2][i];   
+                      else if((OneTwoThree_Two[2][5] > OneTwoThree_Two[0][5]) &&
+                             (OneTwoThree_Two[2][5] > OneTwoThree_Two[1][5]))  
+                             for(int i=0; i < 7 ; i++) Two_abc[2][i] = OneTwoThree_Two[2][i];   
 
-                      else for(int i=0; i < 7 ; i++) SameLane_abc[1][i] = VehAhead_SameLane[2][i];   
+                      else for(int i=0; i < 7 ; i++) Two_abc[1][i] = OneTwoThree_Two[2][i];   
                       }
 
-                cout << "SameLane_abc[0]" << SameLane_abc[0][5] << endl;   
-                cout << "SameLane_abc[1]" << SameLane_abc[1][5] << endl;   
-                cout << "SameLane_abc[2]" << SameLane_abc[2][5] << endl;   
+                cout << "Two_abc[0]" << Two_abc[0][5] << endl;   
+                cout << "Two_abc[1]" << Two_abc[1][5] << endl;   
+                cout << "Two_abc[2]" << Two_abc[2][5] << endl;   
   
                   
 
@@ -405,10 +405,10 @@ int main() {
                 bool too_close = false;
   
 
-                double car_a_vx = SameLane_abc[0][3];
-                double car_a_vy = SameLane_abc[0][4];
+                double car_a_vx = Two_abc[0][3];
+                double car_a_vy = Two_abc[0][4];
                 double car_a_v  = sqrt(car_a_vx*car_a_vx+car_a_vy*car_a_vy);
-                double car_a_s  = SameLane_abc[0][5];
+                double car_a_s  = Two_abc[0][5];
                 
 
                 // gap that a vehicle following car a should keep  
