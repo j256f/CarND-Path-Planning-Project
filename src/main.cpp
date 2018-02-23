@@ -237,15 +237,15 @@ int main() {
           // j[1] is the data JSON object
           
         	// Main car's localization Data
-          	double car_x_x = j[1]["x"];
-          	double car_x_y = j[1]["y"];
-          	double car_x_s = j[1]["s"];
+          	double Five_x = j[1]["x"];  
+          	double Five_y = j[1]["y"];
+          	double Five_s = j[1]["s"];
           	double car_x_d = j[1]["d"];
-          	double car_x_yaw = j[1]["yaw"];
+          	double Five_yaw = j[1]["yaw"];
           	double car_x_speed = j[1]["speed"];
 
                 //double car_a_speed = .0;
-                //double car_a_s = 0.0;
+                //double 2a_s = 0.0;
 
           	// Previous path data given to the Planner
           	auto previous_path_x = j[1]["previous_path_x"];
@@ -259,68 +259,68 @@ int main() {
                 vector<vector<double>> sensor_fusion = j[1]["sensor_fusion"];
                
 
-                // Get sefu_OneTwoThree from sensor_fusion
+                // Get OneTwoThree from sensor_fusion
                 // a vector of vectors with all vehicles at 300 meters ahead
 
-                vector<vector<double>> sefu_OneTwoThree = j[1]["sensor_fusion"];
+                vector<vector<double>> OneTwoThree = j[1]["sensor_fusion"];
                      
                 int p = 0;     
                 
                 for(int i = 0; i < sensor_fusion.size();i++)
                 {
                     
-                    sefu_OneTwoThree[i][0] = 0.0;
-                    sefu_OneTwoThree[i][1] = 0.0;
-                    sefu_OneTwoThree[i][2] = 0.0;
-                    sefu_OneTwoThree[i][3] = 0.0;
-                    sefu_OneTwoThree[i][4] = 0.0;
-                    sefu_OneTwoThree[i][5] = 0.0;
-                    sefu_OneTwoThree[i][6] = 0.0;
+                    OneTwoThree[i][0] = 0.0;
+                    OneTwoThree[i][1] = 0.0;
+                    OneTwoThree[i][2] = 0.0;
+                    OneTwoThree[i][3] = 0.0;
+                    OneTwoThree[i][4] = 0.0;
+                    OneTwoThree[i][5] = 0.0;
+                    OneTwoThree[i][6] = 0.0;
                     
-                    if (((sensor_fusion[i][5] - car_x_s) < 400.0) && ((sensor_fusion[i][5] - car_x_s) > 0))
+                    if (((sensor_fusion[i][5] - Five_s) < 400.0) && ((sensor_fusion[i][5] - Five_s) > 0))
                         {
                                          
-                        sefu_OneTwoThree[p][0] = sensor_fusion[i][0];
-                        sefu_OneTwoThree[p][1] = sensor_fusion[i][1];
-                        sefu_OneTwoThree[p][2] = sensor_fusion[i][2];
-                        sefu_OneTwoThree[p][3] = sensor_fusion[i][3];
-                        sefu_OneTwoThree[p][4] = sensor_fusion[i][4];
-                        sefu_OneTwoThree[p][5] = sensor_fusion[i][5];
-                        sefu_OneTwoThree[p][6] = sensor_fusion[i][6];
+                        OneTwoThree[p][0] = sensor_fusion[i][0];
+                        OneTwoThree[p][1] = sensor_fusion[i][1];
+                        OneTwoThree[p][2] = sensor_fusion[i][2];
+                        OneTwoThree[p][3] = sensor_fusion[i][3];
+                        OneTwoThree[p][4] = sensor_fusion[i][4];
+                        OneTwoThree[p][5] = sensor_fusion[i][5];
+                        OneTwoThree[p][6] = sensor_fusion[i][6];
                         p++;
                         
                         }
                 }
 
                 
-                // Get VehAhead_same from sefu_OneTwoThree
+                // Get VehAhead_same from OneTwoThree
                 // a vector of vectors with all vehicles at 300 meters ahead and on same lane
 
-                vector<vector<double>> OneTwoThree_Two = j[1]["sensor_fusion"];
+                vector<vector<double>> Two = j[1]["sensor_fusion"];
                      
                 p = 0;     
                 
                 for(int i = 0; i < sensor_fusion.size();i++)
                 {
                     
-                    OneTwoThree_Two[i][0] = 0.0;
-                    OneTwoThree_Two[i][1] = 0.0;
-                    OneTwoThree_Two[i][2] = 0.0;
-                    OneTwoThree_Two[i][3] = 0.0;
-                    OneTwoThree_Two[i][4] = 0.0;
-                    OneTwoThree_Two[i][5] = 0.0;
-                    OneTwoThree_Two[i][6] = 0.0;
+                    Two[i][0] = 0.0;
+                    Two[i][1] = 0.0;
+                    Two[i][2] = 0.0;
+                    Two[i][3] = 0.0;
+                    Two[i][4] = 0.0;
+                    Two[i][5] = 0.0;
+                    Two[i][6] = 0.0;
                     
-                    if ((abs(sefu_OneTwoThree[i][6] - car_x_d) < 2.0))
+                    if ((abs(OneTwoThree[i][6] - car_x_d) < 2.0))
                         {
                                          
-                        OneTwoThree_Two[p][0] = sefu_OneTwoThree[i][0];
-                        OneTwoThree_Two[p][1] = sefu_OneTwoThree[i][1];
-                        OneTwoThree_Two[p][2] = sefu_OneTwoThree[i][2];
-                        OneTwoThree_Two[p][3] = sefu_OneTwoThree[i][3];
-                        OneTwoThree_Two[p][4] = sefu_OneTwoThree[i][4];
-                        OneTwoThree_Two[p][5] = sefu_OneTwoThree[i][5];
-                        OneTwoThree_Two[p][6] = sefu_OneTwoThree[i][6];
+                        Two[p][0] = OneTwoThree[i][0];
+                        Two[p][1] = OneTwoThree[i][1];
+                        Two[p][2] = OneTwoThree[i][2];
+                        Two[p][3] = OneTwoThree[i][3];
+                        Two[p][4] = OneTwoThree[i][4];
+                        Two[p][5] = OneTwoThree[i][5];
+                        Two[p][6] = OneTwoThree[i][6];
                         p++;
                          
                         }
@@ -328,68 +328,68 @@ int main() {
 
                
  
-                // Get Two_abc from OneTwoThree_Two
+                // Get 2abc from Two
                 // a vector with telemetry of the first 3 vehicle in order of appereance 
  
 
-                vector<vector<double>> Two_abc(3,vector<double>(7));
+                vector<vector<double>> 2abc(3,vector<double>(7));
 
  
-                if((OneTwoThree_Two[1][5] == 0) && (OneTwoThree_Two[2][5] == 0))
-                    for(int i=0; i < 7 ; i++) Two_abc[0][i] = OneTwoThree_Two[0][i];   
-                else  if(OneTwoThree_Two[2][5] == 0)
+                if((Two[1][5] == 0) && (Two[2][5] == 0))
+                    for(int i=0; i < 7 ; i++) 2abc[0][i] = Two[0][i];   
+                else  if(Two[2][5] == 0)
                            {    
-                           if(OneTwoThree_Two[0][5] < OneTwoThree_Two[1][5])
+                           if(Two[0][5] < Two[1][5])
                                {
-                               for(int i=0; i < 7 ; i++) Two_abc[0][i] = OneTwoThree_Two[0][i]; 
-                               for(int i=0; i < 7 ; i++) Two_abc[1][i] = OneTwoThree_Two[1][i];
+                               for(int i=0; i < 7 ; i++) 2abc[0][i] = Two[0][i]; 
+                               for(int i=0; i < 7 ; i++) 2abc[1][i] = Two[1][i];
                                }   
                            else
                                {  
-                               for(int i=0; i < 7 ; i++) Two_abc[0][i] = OneTwoThree_Two[1][i];
-                               for(int i=0; i < 7 ; i++) Two_abc[1][i] = OneTwoThree_Two[0][i]; 
+                               for(int i=0; i < 7 ; i++) 2abc[0][i] = Two[1][i];
+                               for(int i=0; i < 7 ; i++) 2abc[1][i] = Two[0][i]; 
                                }  
                            }    
                        
                 else { 
 
 
-                      if((OneTwoThree_Two[0][5] < OneTwoThree_Two[1][5])  && 
-                         (OneTwoThree_Two[0][5] < OneTwoThree_Two[2][5]))   
-                         for(int i=0; i < 7 ; i++) Two_abc[0][i] = OneTwoThree_Two[0][i];   
+                      if((Two[0][5] < Two[1][5])  && 
+                         (Two[0][5] < Two[2][5]))   
+                         for(int i=0; i < 7 ; i++) 2abc[0][i] = Two[0][i];   
 
-                      else if((OneTwoThree_Two[0][5] > OneTwoThree_Two[1][5]) &&
-                              (OneTwoThree_Two[0][5] > OneTwoThree_Two[2][5]))  
-                              for(int i=0; i < 7 ; i++) Two_abc[2][i] = OneTwoThree_Two[0][i];   
+                      else if((Two[0][5] > Two[1][5]) &&
+                              (Two[0][5] > Two[2][5]))  
+                              for(int i=0; i < 7 ; i++) 2abc[2][i] = Two[0][i];   
 
-                      else for(int i=0; i < 7 ; i++) Two_abc[1][i] = OneTwoThree_Two[0][i];   
+                      else for(int i=0; i < 7 ; i++) 2abc[1][i] = Two[0][i];   
                
 
-                      if((OneTwoThree_Two[1][5] < OneTwoThree_Two[0][5])  && 
-                         (OneTwoThree_Two[2][5] < OneTwoThree_Two[2][5]))   
-                         for(int i=0; i < 7 ; i++) Two_abc[0][i] = OneTwoThree_Two[1][i];   
+                      if((Two[1][5] < Two[0][5])  && 
+                         (Two[2][5] < Two[2][5]))   
+                         for(int i=0; i < 7 ; i++) 2abc[0][i] = Two[1][i];   
 
-                      else if((OneTwoThree_Two[1][5] > OneTwoThree_Two[0][5]) &&
-                              (OneTwoThree_Two[1][5] > OneTwoThree_Two[2][5]))  
-                              for(int i=0; i < 7 ; i++) Two_abc[2][i] = OneTwoThree_Two[1][i];   
+                      else if((Two[1][5] > Two[0][5]) &&
+                              (Two[1][5] > Two[2][5]))  
+                              for(int i=0; i < 7 ; i++) 2abc[2][i] = Two[1][i];   
 
-                      else for(int i=0; i < 7 ; i++) Two_abc[1][i] = OneTwoThree_Two[1][i];   
+                      else for(int i=0; i < 7 ; i++) 2abc[1][i] = Two[1][i];   
 
 
-                      if((OneTwoThree_Two[2][5] < OneTwoThree_Two[0][5])  && 
-                         (OneTwoThree_Two[2][5] < OneTwoThree_Two[1][5]))   
-                         for(int i=0; i < 7 ; i++) Two_abc[0][i] = OneTwoThree_Two[2][i];   
+                      if((Two[2][5] < Two[0][5])  && 
+                         (Two[2][5] < Two[1][5]))   
+                         for(int i=0; i < 7 ; i++) 2abc[0][i] = Two[2][i];   
 
-                      else if((OneTwoThree_Two[2][5] > OneTwoThree_Two[0][5]) &&
-                             (OneTwoThree_Two[2][5] > OneTwoThree_Two[1][5]))  
-                             for(int i=0; i < 7 ; i++) Two_abc[2][i] = OneTwoThree_Two[2][i];   
+                      else if((Two[2][5] > Two[0][5]) &&
+                             (Two[2][5] > Two[1][5]))  
+                             for(int i=0; i < 7 ; i++) 2abc[2][i] = Two[2][i];   
 
-                      else for(int i=0; i < 7 ; i++) Two_abc[1][i] = OneTwoThree_Two[2][i];   
+                      else for(int i=0; i < 7 ; i++) 2abc[1][i] = Two[2][i];   
                       }
 
-                cout << "Two_abc[0]" << Two_abc[0][5] << endl;   
-                cout << "Two_abc[1]" << Two_abc[1][5] << endl;   
-                cout << "Two_abc[2]" << Two_abc[2][5] << endl;   
+                cout << "2abc[0]" << 2abc[0][5] << endl;   
+                cout << "2abc[1]" << 2abc[1][5] << endl;   
+                cout << "2abc[2]" << 2abc[2][5] << endl;   
   
                   
 
@@ -399,41 +399,41 @@ int main() {
 
                 if (prev_size > 0)
                 {
-                   car_x_s = end_path_s;
+                   Five_s = end_path_s;
                 }
 
                 bool too_close = false;
   
 
-                double car_a_vx = Two_abc[0][3];
-                double car_a_vy = Two_abc[0][4];
-                double car_a_v  = sqrt(car_a_vx*car_a_vx+car_a_vy*car_a_vy);
-                double car_a_s  = Two_abc[0][5];
+                double 2a_vx = 2abc[0][3];
+                double 2a_vy = 2abc[0][4];
+                double 2a_v  = sqrt(2a_vx*2a_vx+2a_vy*2a_vy);
+                double 2a_s  = 2abc[0][5];
                 
 
                 // gap that a vehicle following car a should keep  
                 //  
-                double car_a_gap = car_a_v * 0.4697 * 2.0 ; // 2 seconds in distance
+                double 2a_gap = 2a_v * 0.4697 * 2.0 ; // 2 seconds in distance
 
-                double car_a_rear = car_a_s - car_a_gap; // s where should car x be   
+                double 2a_rear = 2a_s - 2a_gap; // s where should car x be   
 
-                double car_xa_overlap = car_a_rear - car_x_s ;
+                double 5over2aRear = 2a_rear - Five_s ;
 
                 // set ref_vel so that vehicle oscillates 15 meters around gap          
        
-                if (((car_a_rear == 0) && (ref_vel <45)) || ((car_xa_overlap > 15)&&(ref_vel<45))) ref_vel += 0.1;
-                else if (car_xa_overlap < 15) ref_vel += (0.1 * car_xa_overlap/15); 
+                if (((2a_rear == 0) && (ref_vel <45)) || ((5over2aRear > 15)&&(ref_vel<45))) ref_vel += 0.1;
+                else if (5over2aRear < 15) ref_vel += (0.1 * 5over2aRear/15); 
                 
 
                 
 
 /*
                 
-                car_a_s += ((double)prev_size*0.02*car_a_v);
+                2a_s += ((double)prev_size*0.02*2a_v);
                 
-                //cout <<"diff = "<< car_a_s-car_x_s << endl;
+                //cout <<"diff = "<< 2a_s-Five_s << endl;
  
-                if((car_a_s > car_x_s) && ((car_a_s-car_x_s) < 30))
+                if((2a_s > Five_s) && ((2a_s-Five_s) < 30))
                        {
 
                            //ref_vel = 29.5;
@@ -465,22 +465,22 @@ int main() {
                 vector<double> ptsy;
 
                 // referencestarting point
-                double ref_x = car_x_x;
-                double ref_y = car_x_y;
-                double ref_yaw =  deg2rad(car_x_yaw);
+                double ref_x = Five_x;
+                double ref_y = Five_y;
+                double ref_yaw =  deg2rad(Five_yaw);
                 
                 // if previous size is almost empty, use car as starting reference
 
                 if (prev_size < 2) 
                 {  
-                    double prev_car_x_x = car_x_x - cos(car_x_yaw);
-                    double prev_car_x_y = car_x_y - sin(car_x_yaw);
+                    double prev_Five_x = Five_x - cos(Five_yaw);
+                    double prev_Five_y = Five_y - sin(Five_yaw);
                       
-                    ptsx.push_back(prev_car_x_x);
-                    ptsx.push_back(car_x_x);
+                    ptsx.push_back(prev_Five_x);
+                    ptsx.push_back(Five_x);
                     
-                    ptsy.push_back(prev_car_x_y);
-                    ptsy.push_back(car_x_y);
+                    ptsy.push_back(prev_Five_y);
+                    ptsy.push_back(Five_y);
                     
                 }
 
@@ -502,9 +502,9 @@ int main() {
                 }
 
 
-                vector<double> next_mp0 = getXY(car_x_s+30,(2+4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);  
-                vector<double> next_mp1 = getXY(car_x_s+60,(2+4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);  
-                vector<double> next_mp2 = getXY(car_x_s+90,(2+4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);  
+                vector<double> next_mp0 = getXY(Five_s+30,(2+4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);  
+                vector<double> next_mp1 = getXY(Five_s+60,(2+4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);  
+                vector<double> next_mp2 = getXY(Five_s+90,(2+4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);  
 
                 ptsx.push_back(next_mp0[0]);
                 ptsx.push_back(next_mp1[0]);
