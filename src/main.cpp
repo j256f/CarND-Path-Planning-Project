@@ -458,6 +458,85 @@ int main() {
                 cout << "Three3= "<< Three[3][5] << "s  " << Three[3][6] << "d " << endl;
                 cout << "Three4= "<< Three[4][5] << "s  " << Three[4][6] << "d " << endl;
   
+
+
+                // Get Seven from SevenNine
+                // a vector of vectors with all vehicles at 400 meters behind and on left lane
+
+                vector<vector<double>> Seven = j[1]["sensor_fusion"];
+                     
+                p = 0;     
+                
+                for(int i = 0; i < sensor_fusion.size();i++)
+                {                    
+                    Seven[i][0] = 0.0;
+                    Seven[i][1] = 0.0;
+                    Seven[i][2] = 0.0;
+                    Seven[i][3] = 0.0;
+                    Seven[i][4] = 0.0;
+                    Seven[i][5] = 0.0;
+                    Seven[i][6] = 0.0; 
+ 
+                    if ((-SevenNine[i][6] + Five_d) > 2.0)
+                        {                         
+                        Seven[p][0] = SevenNine[i][0];
+                        Seven[p][1] = SevenNine[i][1];
+                        Seven[p][2] = SevenNine[i][2];
+                        Seven[p][3] = SevenNine[i][3];
+                        Seven[p][4] = SevenNine[i][4];
+                        Seven[p][5] = SevenNine[i][5];
+                        Seven[p][6] = SevenNine[i][6];
+                        p++;
+              
+                        }
+                }
+
+
+                cout << "Seven= "<< Seven[0][5] << "s  " << Seven[0][6] << "d " << endl;
+                cout << "Seven= "<< Seven[1][5] << "s  " << Seven[1][6] << "d " << endl;
+                cout << "Seven= "<< Seven[2][5] << "s  " << Seven[2][6] << "d " << endl;
+                cout << "Seven= "<< Seven[3][5] << "s  " << Seven[3][6] << "d " << endl;
+                cout << "Seven= "<< Seven[4][5] << "s  " << Seven[4][6] << "d " << endl;
+
+                // Get Ninefrom SevenNine
+                // a vector of vectors with all vehicles at 400 meters behind and on right lane
+
+                vector<vector<double>> Nine= j[1]["sensor_fusion"];
+                     
+                p = 0;     
+                
+                for(int i = 0; i < sensor_fusion.size();i++)
+                {                    
+                    Nine[i][0] = 0.0;
+                    Nine[i][1] = 0.0;
+                    Nine[i][2] = 0.0;
+                    Nine[i][3] = 0.0;
+                    Nine[i][4] = 0.0;
+                    Nine[i][5] = 0.0;
+                    Nine[i][6] = 0.0;
+                    
+                    if ((SevenNine[i][6] - Five_d) > 2.0)
+                        {                         
+                        Nine[p][0] = SevenNine[i][0];
+                        Nine[p][1] = SevenNine[i][1];
+                        Nine[p][2] = SevenNine[i][2];
+                        Nine[p][3] = SevenNine[i][3];
+                        Nine[p][4] = SevenNine[i][4];
+                        Nine[p][5] = SevenNine[i][5];
+                        Nine[p][6] = SevenNine[i][6];
+                        p++;
+              
+                        }
+                }
+
+
+                cout << "Nine= "<< Nine[0][5] << "s  " << Nine[0][6] << "d " << endl;
+                cout << "Nine= "<< Nine[1][5] << "s  " << Nine[1][6] << "d " << endl;
+                cout << "Nine= "<< Nine[2][5] << "s  " << Nine[2][6] << "d " << endl;
+                cout << "Nine= "<< Nine[3][5] << "s  " << Nine[3][6] << "d " << endl;
+                cout << "Nine= "<< Nine[4][5] << "s  " << Nine[4][6] << "d " << endl;
+
+
                 // Get Two_s_abc from Two
                 // a vector with telemetry of the first 3 vehicle in order of appereance 
  
