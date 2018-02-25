@@ -574,7 +574,7 @@ int main() {
                
 
                       if((One[1][5] < One[0][5])  && 
-                         (One[2][5] < One[2][5]))   
+                         (One[1][5] < One[2][5]))   
                          for(int i=0; i < 7 ; i++) One_s_abc[0][i] = One[1][i];   
 
                       else if((One[1][5] > One[0][5]) &&
@@ -637,7 +637,7 @@ int main() {
                
 
                       if((Two[1][5] < Two[0][5])  && 
-                         (Two[2][5] < Two[2][5]))   
+                         (Two[1][5] < Two[2][5]))   
                          for(int i=0; i < 7 ; i++) Two_s_abc[0][i] = Two[1][i];   
 
                       else if((Two[1][5] > Two[0][5]) &&
@@ -700,7 +700,7 @@ int main() {
                
 
                       if((Three[1][5] < Three[0][5])  && 
-                         (Three[2][5] < Three[2][5]))   
+                         (Three[1][5] < Three[2][5]))   
                          for(int i=0; i < 7 ; i++) Three_s_abc[0][i] = Three[1][i];   
 
                       else if((Three[1][5] > Three[0][5]) &&
@@ -756,18 +756,36 @@ int main() {
                 // Determine which lane is best
 
 
-                // If 
-
-
-                int One_val = 0;
-                int Two_val = 0;
-                int Three_val = 0;
+                double One_val = .0;
+                double Two_val = .0;
+                double Three_val = .0;
                
-  
-                if (One_s_abc[0][5] == 0) One_val = 1;
-                if (Two_s_abc[0][5] == 0) Two_val = 1;
-                if (Three_s_abc[0][5] == 0) Three_val = 1;
-                
+                // The best lane is the one that is empty   
+                if (One_s_abc[0][5] == 0) One_val += 1.0;
+                if (Two_s_abc[0][5] == 0) Two_val += 1.0;
+                if (Three_s_abc[0][5] == 0) Three_val += 1.0;
+
+                // The second best lane is the one wich lowest car is faster than other lane slow cars
+                //if ((One_va_v > Two_va_v) && (One_va_v > Three_va_v)) One_val += 0.5;
+                //if ((Two_va_v > One_va_v) && (Two_va_v > Three_va_v)) Two_val += 0.5;
+                //if ((Three_va_v > Two_va_v) && (Three_va_v > One_va_v)) Three_val  += 0.5;
+
+                // Thre third best lane is the one with more clearance
+                //if ((One_s_abc[0][5]-Five_s)>40) One_val += 0.4;
+                //if ((Two_s_abc[0][5]-Five_s)>40) Two_val += 0.4;
+                //if ((Three_s_abc[0][5]-Five_s)>40) Three_val += 0.4;            
+                // another way for the third best?
+                //One_val += ((One_s_abc[0][5]-Five_s)/380)*0.4;
+                //Two_val += ((Two_s_abc[0][5]-Five_s)/380)*0.4;
+                //Three_val += ((Three_s_abc[0][5]-Five_s)/380)*0.4;
+
+                // The plausible lane is the one that might be taken safetely
+                //if ((One_s_abc[0][5]-Five_s) < 20)||((Five_s - Seven_s_abc[0][5]) < 20) One_val += -1
+                //if ((Three_s_abc[0][5]-Five_s) < 20)||((Five_s - Nine_s_abc[0][5]) < 20) Three_val += -1
+
+
+
+
                 cout << "One_val = " << One_val << endl;
                 cout << "Two_val = " << Two_val << endl;
                 cout << "Three_val = " << Three_val << endl;                   
@@ -797,7 +815,7 @@ int main() {
                 // What makes 5 change to lane0 or lane2 if curent Lane is 1?                
 
                 if ((lane==1) && (One_val > Two_val) && (One_val>Three_val)) lane = 0;
-                else if ((lane==1) && (One_val > Two_val) && (Three_val > Two_val) && (One_val == Three_val)) lane = 0;
+                else if ((lane==1) && (One_val != 0) && (One_val > Two_val) && (Three_val > Two_val) && (One_val == Three_val)) lane = 0;
                 else if ((lane==1) && (Three_val>Two_val) && (Three_val > One_val)) lane = 2;                            
 
                 // What makes 5 to change to lane1 if current Lane is 2?                   
