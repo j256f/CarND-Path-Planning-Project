@@ -382,9 +382,9 @@ int main() {
                 }
 
 
-                cout << "One0= "<< One[0][5] << "s  " << One[0][6] << "d " << endl;
-                cout << "One1= "<< One[1][5] << "s  " << One[1][6] << "d " << endl;
-                cout << "One2= "<< One[2][5] << "s  " << One[2][6] << "d " << endl;
+                //cout << "One0= "<< One[0][5] << "s  " << One[0][6] << "d " << endl;
+                //cout << "One1= "<< One[1][5] << "s  " << One[1][6] << "d " << endl;
+                //cout << "One2= "<< One[2][5] << "s  " << One[2][6] << "d " << endl;
                 //cout << "One3= "<< One[3][5] << "s  " << One[3][6] << "d " << endl;
                 //cout << "One4= "<< One[4][5] << "s  " << One[4][6] << "d " << endl;
                 
@@ -452,9 +452,9 @@ int main() {
                 }
 
 
-                cout << "Three0= "<< Three[0][5] << "s  " << Three[0][6] << "d " << endl;
-                cout << "Three1= "<< Three[1][5] << "s  " << Three[1][6] << "d " << endl;
-                cout << "Three2= "<< Three[2][5] << "s  " << Three[2][6] << "d " << endl;
+                //cout << "Three0= "<< Three[0][5] << "s  " << Three[0][6] << "d " << endl;
+                //cout << "Three1= "<< Three[1][5] << "s  " << Three[1][6] << "d " << endl;
+                //cout << "Three2= "<< Three[2][5] << "s  " << Three[2][6] << "d " << endl;
                 //cout << "Three3= "<< Three[3][5] << "s  " << Three[3][6] << "d " << endl;
                 //cout << "Three4= "<< Three[4][5] << "s  " << Three[4][6] << "d " << endl;
   
@@ -595,9 +595,9 @@ int main() {
                       else for(int i=0; i < 7 ; i++) One_s_abc[1][i] = One[2][i];   
                       }
 
-                cout << "One_s_abc[0]" << One_s_abc[0][5] << endl;   
-                cout << "One_s_abc[1]" << One_s_abc[1][5] << endl;   
-                cout << "One_s_abc[2]" << One_s_abc[2][5] << endl;   
+                //cout << "One_s_abc[0]" << One_s_abc[0][5] << endl;   
+                //cout << "One_s_abc[1]" << One_s_abc[1][5] << endl;   
+                //cout << "One_s_abc[2]" << One_s_abc[2][5] << endl;   
  
                 // Get One_v_abc from One
                 // a vector with telemetry of the first 3 vehicle in order of velocity 
@@ -662,9 +662,9 @@ int main() {
                       else for(int i=0; i < 7 ; i++) One_v_abc[1][i] = One[2][i];   
                       }
 
-                cout << "One_v_abc[0]" << One_v_abc[0][5] << endl;   
-                cout << "One_v_abc[1]" << One_v_abc[1][5] << endl;   
-                cout << "One_v_abc[2]" << One_v_abc[2][5] << endl;   
+                //cout << "One_v_abc[0]" << One_v_abc[0][5] << endl;   
+                //cout << "One_v_abc[1]" << One_v_abc[1][5] << endl;   
+                //cout << "One_v_abc[2]" << One_v_abc[2][5] << endl;   
 
 
                  // Get Two_s_abc from Two
@@ -726,9 +726,9 @@ int main() {
                       else for(int i=0; i < 7 ; i++) Two_s_abc[1][i] = Two[2][i];   
                       }
 
-                cout << "Two_s_abc[0]" << Two_s_abc[0][5] << endl;   
-                cout << "Two_s_abc[1]" << Two_s_abc[1][5] << endl;   
-                cout << "Two_s_abc[2]" << Two_s_abc[2][5] << endl;   
+                //cout << "Two_s_abc[0]" << Two_s_abc[0][5] << endl;   
+                //cout << "Two_s_abc[1]" << Two_s_abc[1][5] << endl;   
+                //cout << "Two_s_abc[2]" << Two_s_abc[2][5] << endl;   
   
                 // Get Two_v_abc from Two
                 // a vector with telemetry of the first 3 vehicle in order of velocity 
@@ -794,9 +794,9 @@ int main() {
                       else for(int i=0; i < 7 ; i++) Two_v_abc[1][i] = Two[2][i];   
                       }
 
-                cout << "Two_v_abc[0]" << Two_v_abc[0][5] << endl;   
-                cout << "Two_v_abc[1]" << Two_v_abc[1][5] << endl;   
-                cout << "Two_v_abc[2]" << Two_v_abc[2][5] << endl;   
+                //cout << "Two_v_abc[0]" << Two_v_abc[0][5] << endl;   
+                //cout << "Two_v_abc[1]" << Two_v_abc[1][5] << endl;   
+                //cout << "Two_v_abc[2]" << Two_v_abc[2][5] << endl;   
 
                 // Get Three_s_abc from Three
                 // a vector with telemetry of the first 3 vehicle in order of appereance 
@@ -857,9 +857,9 @@ int main() {
                       else for(int i=0; i < 7 ; i++) Three_s_abc[1][i] = Three[2][i];   
                       }
 
-                cout << "Three_s_abc[0]" << Three_s_abc[0][5] << endl;   
-                cout << "Three_s_abc[1]" << Three_s_abc[1][5] << endl;   
-                cout << "Three_s_abc[2]" << Three_s_abc[2][5] << endl;   
+                //cout << "Three_s_abc[0]" << Three_s_abc[0][5] << endl;   
+                //cout << "Three_s_abc[1]" << Three_s_abc[1][5] << endl;   
+                //cout << "Three_s_abc[2]" << Three_s_abc[2][5] << endl;   
 
                 // Get Three_v_abc from Three
                 // a vector with telemetry of the first 3 vehicle in order of velocity 
@@ -925,9 +925,135 @@ int main() {
                       else for(int i=0; i < 7 ; i++) Three_v_abc[1][i] = Three[2][i];   
                       }
 
-                cout << "Three_v_abc[0]" << Three_v_abc[0][5] << endl;   
-                cout << "Three_v_abc[1]" << Three_v_abc[1][5] << endl;   
-                cout << "Three_v_abc[2]" << Three_v_abc[2][5] << endl;   
+                //cout << "Three_v_abc[0]" << Three_v_abc[0][5] << endl;   
+                //cout << "Three_v_abc[1]" << Three_v_abc[1][5] << endl;   
+                //cout << "Three_v_abc[2]" << Three_v_abc[2][5] << endl;   
+
+                // Get Seven_s_abc from Seven
+                // a vector with telemetry of the first 3 vehicle in order of appereance 
+ 
+
+                vector<vector<double>> Seven_s_abc(3,vector<double>(7));
+
+ 
+                if((Seven[1][5] == 0) && (Seven[2][5] == 0))
+                    for(int i=0; i < 7 ; i++) Seven_s_abc[0][i] = Seven[0][i];   
+                else  if(Seven[2][5] == 0)
+                           {    
+                           if(Seven[0][5] > Seven[1][5])
+                               {
+                               for(int i=0; i < 7 ; i++) Seven_s_abc[0][i] = Seven[0][i]; 
+                               for(int i=0; i < 7 ; i++) Seven_s_abc[1][i] = Seven[1][i];
+                               }   
+                           else
+                               {  
+                               for(int i=0; i < 7 ; i++) Seven_s_abc[0][i] = Seven[1][i];
+                               for(int i=0; i < 7 ; i++) Seven_s_abc[1][i] = Seven[0][i]; 
+                               }  
+                           }    
+                       
+                else { 
+
+
+                      if((Seven[0][5] > Seven[1][5])  && 
+                         (Seven[0][5] > Seven[2][5]))   
+                         for(int i=0; i < 7 ; i++) Seven_s_abc[0][i] = Seven[0][i];   
+
+                      else if((Seven[0][5] < Seven[1][5]) &&
+                              (Seven[0][5] < Seven[2][5]))  
+                              for(int i=0; i < 7 ; i++) Seven_s_abc[2][i] = Seven[0][i];   
+
+                      else for(int i=0; i < 7 ; i++) Seven_s_abc[1][i] = Seven[0][i];   
+               
+
+                      if((Seven[1][5] > Seven[0][5])  && 
+                         (Seven[1][5] > Seven[2][5]))   
+                         for(int i=0; i < 7 ; i++) Seven_s_abc[0][i] = Seven[1][i];   
+
+                      else if((Seven[1][5] < Seven[0][5]) &&
+                              (Seven[1][5] < Seven[2][5]))  
+                              for(int i=0; i < 7 ; i++) Seven_s_abc[2][i] = Seven[1][i];   
+
+                      else for(int i=0; i < 7 ; i++) Seven_s_abc[1][i] = Seven[1][i];   
+
+
+                      if((Seven[2][5] > Seven[0][5])  && 
+                         (Seven[2][5] > Seven[1][5]))   
+                         for(int i=0; i < 7 ; i++) Seven_s_abc[0][i] = Seven[2][i];   
+
+                      else if((Seven[2][5] < Seven[0][5]) &&
+                             (Seven[2][5] < Seven[1][5]))  
+                             for(int i=0; i < 7 ; i++) Seven_s_abc[2][i] = Seven[2][i];   
+
+                      else for(int i=0; i < 7 ; i++) Seven_s_abc[1][i] = Seven[2][i];   
+                      }
+
+                //cout << "Seven_s_abc[0]" << Seven_s_abc[0][5] << endl;   
+                //cout << "Seven_s_abc[1]" << Seven_s_abc[1][5] << endl;   
+                //cout << "Seven_s_abc[2]" << Seven_s_abc[2][5] << endl;   
+
+                // Get Nine_s_abc from Nine
+                // a vector with telemetry of the first 3 vehicle in order of appereance 
+ 
+
+                vector<vector<double>> Nine_s_abc(3,vector<double>(7));
+
+ 
+                if((Nine[1][5] == 0) && (Nine[2][5] == 0))
+                    for(int i=0; i < 7 ; i++) Nine_s_abc[0][i] = Nine[0][i];   
+                else  if(Nine[2][5] == 0)
+                           {    
+                           if(Nine[0][5] > Nine[1][5])
+                               {
+                               for(int i=0; i < 7 ; i++) Nine_s_abc[0][i] = Nine[0][i]; 
+                               for(int i=0; i < 7 ; i++) Nine_s_abc[1][i] = Nine[1][i];
+                               }   
+                           else
+                               {  
+                               for(int i=0; i < 7 ; i++) Nine_s_abc[0][i] = Nine[1][i];
+                               for(int i=0; i < 7 ; i++) Nine_s_abc[1][i] = Nine[0][i]; 
+                               }  
+                           }    
+                       
+                else { 
+
+
+                      if((Nine[0][5] > Nine[1][5])  && 
+                         (Nine[0][5] > Nine[2][5]))   
+                         for(int i=0; i < 7 ; i++) Nine_s_abc[0][i] = Nine[0][i];   
+
+                      else if((Nine[0][5] < Nine[1][5]) &&
+                              (Nine[0][5] < Nine[2][5]))  
+                              for(int i=0; i < 7 ; i++) Nine_s_abc[2][i] = Nine[0][i];   
+
+                      else for(int i=0; i < 7 ; i++) Nine_s_abc[1][i] = Nine[0][i];   
+               
+
+                      if((Nine[1][5] > Nine[0][5])  && 
+                         (Nine[1][5] > Nine[2][5]))   
+                         for(int i=0; i < 7 ; i++) Nine_s_abc[0][i] = Nine[1][i];   
+
+                      else if((Nine[1][5] < Nine[0][5]) &&
+                              (Nine[1][5] < Nine[2][5]))  
+                              for(int i=0; i < 7 ; i++) Nine_s_abc[2][i] = Nine[1][i];   
+
+                      else for(int i=0; i < 7 ; i++) Nine_s_abc[1][i] = Nine[1][i];   
+
+
+                      if((Nine[2][5] > Nine[0][5])  && 
+                         (Nine[2][5] > Nine[1][5]))   
+                         for(int i=0; i < 7 ; i++) Nine_s_abc[0][i] = Nine[2][i];   
+
+                      else if((Nine[2][5] < Nine[0][5]) &&
+                             (Nine[2][5] < Nine[1][5]))  
+                             for(int i=0; i < 7 ; i++) Nine_s_abc[2][i] = Nine[2][i];   
+
+                      else for(int i=0; i < 7 ; i++) Nine_s_abc[1][i] = Nine[2][i];   
+                      }
+
+                //cout << "Nine_s_abc[0]" << Nine_s_abc[0][5] << endl;   
+                //cout << "Nine_s_abc[1]" << Nine_s_abc[1][5] << endl;   
+                //cout << "Nine_s_abc[2]" << Nine_s_abc[2][5] << endl;   
 
                    
                 int prev_size = previous_path_x.size();
@@ -953,9 +1079,9 @@ int main() {
 
                 // set ref_vel so that vehicle oscillates 15 meters around gap          
        
-                if (((Two_sa_rear == 0) && (ref_vel <45)) || ((FiveOverTwo_saRear > 15)&&(ref_vel<45))) 
+                if (((Two_sa_rear == 0) && (ref_vel <45)) || ((FiveOverTwo_saRear > 20)&&(ref_vel<45))) 
                     ref_vel += 0.1;
-                else if (FiveOverTwo_saRear < 15) ref_vel += (0.1 * FiveOverTwo_saRear/15); 
+                else if (FiveOverTwo_saRear < 20) ref_vel += (0.1 * FiveOverTwo_saRear/20); 
                 
 
                 // Determine which lane is best
@@ -970,23 +1096,27 @@ int main() {
                 if (Two_s_abc[0][5] == 0) Two_val += 1.0;
                 if (Three_s_abc[0][5] == 0) Three_val += 1.0;
 
+                double One_va_v = sqrt(One_v_abc[0][3]*One_v_abc[0][3]+One_v_abc[0][4]*One_v_abc[0][4]);
+                double Two_va_v = sqrt(Two_v_abc[0][3]*Two_v_abc[0][3]+Two_v_abc[0][4]*Two_v_abc[0][4]);
+                double Three_va_v = sqrt(Three_v_abc[0][3]*Three_v_abc[0][3]+Three_v_abc[0][4]*Three_v_abc[0][4]);
+
                 // The second best lane is the one wich lowest car is faster than other lane slow cars
-                //if ((One_va_v > Two_va_v) && (One_va_v > Three_va_v)) One_val += 0.5;
-                //if ((Two_va_v > One_va_v) && (Two_va_v > Three_va_v)) Two_val += 0.5;
-                //if ((Three_va_v > Two_va_v) && (Three_va_v > One_va_v)) Three_val  += 0.5;
+                if ((One_va_v > Two_va_v) && (One_va_v > Three_va_v)) One_val += 0.5;
+                if ((Two_va_v > One_va_v) && (Two_va_v > Three_va_v)) Two_val += 0.5;
+                if ((Three_va_v > Two_va_v) && (Three_va_v > One_va_v)) Three_val  += 0.5;
 
                 // Thre third best lane is the one with more clearance
                 //if ((One_s_abc[0][5]-Five_s)>40) One_val += 0.4;
                 //if ((Two_s_abc[0][5]-Five_s)>40) Two_val += 0.4;
                 //if ((Three_s_abc[0][5]-Five_s)>40) Three_val += 0.4;            
                 // another way for the third best?
-                //One_val += ((One_s_abc[0][5]-Five_s)/380)*0.4;
-                //Two_val += ((Two_s_abc[0][5]-Five_s)/380)*0.4;
-                //Three_val += ((Three_s_abc[0][5]-Five_s)/380)*0.4;
+                if (One_s_abc[0][5] !=0) One_val += ((One_s_abc[0][5]-Five_s)/380)*0.4;
+                if (Two_s_abc[0][5] !=0) Two_val += ((Two_s_abc[0][5]-Five_s)/380)*0.4;
+                if (Three_s_abc[0][5] !=0) Three_val += ((Three_s_abc[0][5]-Five_s)/380)*0.4;
 
                 // The plausible lane is the one that might be taken safetely
-                //if ((One_s_abc[0][5]-Five_s) < 20)||((Five_s - Seven_s_abc[0][5]) < 20) One_val += -1
-                //if ((Three_s_abc[0][5]-Five_s) < 20)||((Five_s - Nine_s_abc[0][5]) < 20) Three_val += -1
+                if (((One_s_abc[0][5]-Five_s) < 30)||((Five_s - Seven_s_abc[0][5]) < 90)) One_val += -1;
+                if (((Three_s_abc[0][5]-Five_s) < 30)||((Five_s - Nine_s_abc[0][5]) < 90)) Three_val += -1;
 
 
 
