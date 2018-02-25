@@ -599,7 +599,75 @@ int main() {
                 cout << "One_s_abc[1]" << One_s_abc[1][5] << endl;   
                 cout << "One_s_abc[2]" << One_s_abc[2][5] << endl;   
  
-                // Get Two_s_abc from Two
+                // Get One_v_abc from One
+                // a vector with telemetry of the first 3 vehicle in order of velocity 
+ 
+
+                vector<vector<double>> One_v_abc(3,vector<double>(7));
+
+
+                double One_0v = sqrt(One[0][3]*One[0][3]+One[0][4]*One[0][4]);  
+                double One_1v = sqrt(One[1][3]*One[1][3]+One[1][4]*One[1][4]); 
+                double One_2v = sqrt(One[2][3]*One[2][3]+One[2][4]*One[2][4]);
+
+
+                if((One_1v == 0) && (One_2v == 0))
+                    for(int i=0; i < 7 ; i++) One_v_abc[0][i] = One[0][i];   
+                else  if(One_2v == 0)
+                           {    
+                           if(One_0v < One_1v)
+                               {
+                               for(int i=0; i < 7 ; i++) One_v_abc[0][i] = One[0][i]; 
+                               for(int i=0; i < 7 ; i++) One_v_abc[1][i] = One[1][i];
+                               }   
+                           else
+                               {  
+                               for(int i=0; i < 7 ; i++) One_v_abc[0][i] = One[1][i];
+                               for(int i=0; i < 7 ; i++) One_v_abc[1][i] = One[0][i]; 
+                               }  
+                           }    
+                       
+                else 
+                      { 
+                      if((One_0v < One_1v)  && 
+                         (One_0v < One_2v))   
+                         for(int i=0; i < 7 ; i++) One_v_abc[0][i] = One[0][i];   
+
+                      else if((One_0v > One_1v) &&
+                              (One_0v > One_2v))  
+                              for(int i=0; i < 7 ; i++) One_v_abc[2][i] = One[0][i];   
+
+                      else for(int i=0; i < 7 ; i++) One_v_abc[1][i] = One[0][i];   
+               
+
+                      if((One_1v < One_0v)  && 
+                         (One_1v < One_2v))   
+                         for(int i=0; i < 7 ; i++) One_v_abc[0][i] = One[1][i];   
+
+                      else if((One_1v > One_0v) &&
+                              (One_1v > One_2v))  
+                              for(int i=0; i < 7 ; i++) One_v_abc[2][i] = One[1][i];   
+
+                      else for(int i=0; i < 7 ; i++) One_v_abc[1][i] = One[1][i];   
+
+
+                      if((One_2v < One_0v)  && 
+                         (One_2v < One_1v))   
+                         for(int i=0; i < 7 ; i++) One_v_abc[0][i] = One[2][i];   
+
+                      else if((One_2v > One_0v) &&
+                             (One_2v > One_1v))  
+                             for(int i=0; i < 7 ; i++) One_v_abc[2][i] = One[2][i];   
+
+                      else for(int i=0; i < 7 ; i++) One_v_abc[1][i] = One[2][i];   
+                      }
+
+                cout << "One_v_abc[0]" << One_v_abc[0][5] << endl;   
+                cout << "One_v_abc[1]" << One_v_abc[1][5] << endl;   
+                cout << "One_v_abc[2]" << One_v_abc[2][5] << endl;   
+
+
+                 // Get Two_s_abc from Two
                 // a vector with telemetry of the first 3 vehicle in order of appereance 
  
 
@@ -659,9 +727,77 @@ int main() {
                       }
 
                 cout << "Two_s_abc[0]" << Two_s_abc[0][5] << endl;   
-                //cout << "Two_s_abc[1]" << Two_s_abc[1][5] << endl;   
-                //cout << "Two_s_abc[2]" << Two_s_abc[2][5] << endl;   
+                cout << "Two_s_abc[1]" << Two_s_abc[1][5] << endl;   
+                cout << "Two_s_abc[2]" << Two_s_abc[2][5] << endl;   
   
+                // Get Two_v_abc from Two
+                // a vector with telemetry of the first 3 vehicle in order of velocity 
+ 
+
+                vector<vector<double>> Two_v_abc(3,vector<double>(7));
+
+
+                double Two_0v = sqrt(Two[0][3]*Two[0][3]+Two[0][4]*Two[0][4]);  
+                double Two_1v = sqrt(Two[1][3]*Two[1][3]+Two[1][4]*Two[1][4]); 
+                double Two_2v = sqrt(Two[2][3]*Two[2][3]+Two[2][4]*Two[2][4]);  
+
+
+                if((Two_1v == 0) && (Two_2v == 0))
+                    for(int i=0; i < 7 ; i++) Two_v_abc[0][i] = Two[0][i];   
+                else  if(Two_2v == 0)
+                           {    
+                           if(Two_0v < Two_1v)
+                               {
+                               for(int i=0; i < 7 ; i++) Two_v_abc[0][i] = Two[0][i]; 
+                               for(int i=0; i < 7 ; i++) Two_v_abc[1][i] = Two[1][i];
+                               }   
+                           else
+                               {  
+                               for(int i=0; i < 7 ; i++) Two_v_abc[0][i] = Two[1][i];
+                               for(int i=0; i < 7 ; i++) Two_v_abc[1][i] = Two[0][i]; 
+                               }  
+                           }    
+                       
+                else { 
+
+
+                      if((Two_0v < Two_1v)  && 
+                         (Two_0v < Two_2v))   
+                         for(int i=0; i < 7 ; i++) Two_v_abc[0][i] = Two[0][i];   
+
+                      else if((Two_0v > Two_1v) &&
+                              (Two_0v > Two_2v))  
+                              for(int i=0; i < 7 ; i++) Two_v_abc[2][i] = Two[0][i];   
+
+                      else for(int i=0; i < 7 ; i++) Two_v_abc[1][i] = Two[0][i];   
+               
+
+                      if((Two_1v < Two_0v)  && 
+                         (Two_1v < Two_2v))   
+                         for(int i=0; i < 7 ; i++) Two_v_abc[0][i] = Two[1][i];   
+
+                      else if((Two_1v > Two_0v) &&
+                              (Two_1v > Two_2v))  
+                              for(int i=0; i < 7 ; i++) Two_v_abc[2][i] = Two[1][i];   
+
+                      else for(int i=0; i < 7 ; i++) Two_v_abc[1][i] = Two[1][i];   
+
+
+                      if((Two_2v < Two_0v)  && 
+                         (Two_2v < Two_1v))   
+                         for(int i=0; i < 7 ; i++) Two_v_abc[0][i] = Two[2][i];   
+
+                      else if((Two_2v > Two_0v) &&
+                             (Two_2v > Two_1v))  
+                             for(int i=0; i < 7 ; i++) Two_v_abc[2][i] = Two[2][i];   
+
+                      else for(int i=0; i < 7 ; i++) Two_v_abc[1][i] = Two[2][i];   
+                      }
+
+                cout << "Two_v_abc[0]" << Two_v_abc[0][5] << endl;   
+                cout << "Two_v_abc[1]" << Two_v_abc[1][5] << endl;   
+                cout << "Two_v_abc[2]" << Two_v_abc[2][5] << endl;   
+
                 // Get Three_s_abc from Three
                 // a vector with telemetry of the first 3 vehicle in order of appereance 
  
@@ -724,6 +860,75 @@ int main() {
                 cout << "Three_s_abc[0]" << Three_s_abc[0][5] << endl;   
                 cout << "Three_s_abc[1]" << Three_s_abc[1][5] << endl;   
                 cout << "Three_s_abc[2]" << Three_s_abc[2][5] << endl;   
+
+                // Get Three_v_abc from Three
+                // a vector with telemetry of the first 3 vehicle in order of velocity 
+ 
+
+                vector<vector<double>> Three_v_abc(3,vector<double>(7));
+
+
+                double Three_0v = sqrt(Three[0][3]*Three[0][3]+Three[0][4]*Three[0][4]);  
+                double Three_1v = sqrt(Three[1][3]*Three[1][3]+Three[1][4]*Three[1][4]); 
+                double Three_2v = sqrt(Three[2][3]*Three[2][3]+Three[2][4]*Three[2][4]);  
+
+
+                if((Three_1v == 0) && (Three_2v == 0))
+                    for(int i=0; i < 7 ; i++) Three_v_abc[0][i] = Three[0][i];   
+                else  if(Three_2v == 0)
+                           {    
+                           if(Three_0v < Three_1v)
+                               {
+                               for(int i=0; i < 7 ; i++) Three_v_abc[0][i] = Three[0][i]; 
+                               for(int i=0; i < 7 ; i++) Three_v_abc[1][i] = Three[1][i];
+                               }   
+                           else
+                               {  
+                               for(int i=0; i < 7 ; i++) Three_v_abc[0][i] = Three[1][i];
+                               for(int i=0; i < 7 ; i++) Three_v_abc[1][i] = Three[0][i]; 
+                               }  
+                           }    
+                       
+                else { 
+
+
+                      if((Three_0v < Three_1v)  && 
+                         (Three_0v < Three_2v))   
+                         for(int i=0; i < 7 ; i++) Three_v_abc[0][i] = Three[0][i];   
+
+                      else if((Three_0v > Three_1v) &&
+                              (Three_0v > Three_2v))  
+                              for(int i=0; i < 7 ; i++) Three_v_abc[2][i] = Three[0][i];   
+
+                      else for(int i=0; i < 7 ; i++) Three_v_abc[1][i] = Three[0][i];   
+               
+
+                      if((Three_1v < Three_0v)  && 
+                         (Three_1v < Three_2v))   
+                         for(int i=0; i < 7 ; i++) Three_v_abc[0][i] = Three[1][i];   
+
+                      else if((Three_1v > Three_0v) &&
+                              (Three_1v > Three_2v))  
+                              for(int i=0; i < 7 ; i++) Three_v_abc[2][i] = Three[1][i];   
+
+                      else for(int i=0; i < 7 ; i++) Three_v_abc[1][i] = Three[1][i];   
+
+
+                      if((Three_2v < Three_0v)  && 
+                         (Three_2v < Three_1v))   
+                         for(int i=0; i < 7 ; i++) Three_v_abc[0][i] = Three[2][i];   
+
+                      else if((Three_2v > Three_0v) &&
+                             (Three_2v > Three_1v))  
+                             for(int i=0; i < 7 ; i++) Three_v_abc[2][i] = Three[2][i];   
+
+                      else for(int i=0; i < 7 ; i++) Three_v_abc[1][i] = Three[2][i];   
+                      }
+
+                cout << "Three_v_abc[0]" << Three_v_abc[0][5] << endl;   
+                cout << "Three_v_abc[1]" << Three_v_abc[1][5] << endl;   
+                cout << "Three_v_abc[2]" << Three_v_abc[2][5] << endl;   
+
                    
                 int prev_size = previous_path_x.size();
 
