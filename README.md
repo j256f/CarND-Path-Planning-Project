@@ -1,6 +1,9 @@
-# CarND-Path-Planning-Projec
+# CarND-Path-Planning-Project
 Self-Driving Car Engineer Nanodegree Program
 
+On commit XXXX I got to code up to what is shown in the Walkthrough video with Aaron and David Silver.
+On commit XXXX I build on top of what was proposed on the walkthrough to made the first attemp
+On commit XXXXX I tweak the speed controller algorithm
 
 ### Goals
 In this project your goal is to safely navigate around a virtual highway with other traffic that is driving +-10 MPH of the 50 MPH speed limit. You will be provided the car's localization and sensor fusion data, there is also a sparse map list of waypoints around the highway. The car should try to go as close as possible to the 50 MPH speed limit, which means passing slower traffic when possible, note that other cars will try to change lanes too. The car should avoid hitting other cars at all cost as well as driving inside of the marked road lanes at all times, unless going from one lane to another. The car should be able to make one complete loop around the 6946m highway. Since the car is trying to go 50 MPH, it should take a little over 5 minutes to complete 1 loop. Also the car should not experience total acceleration over 10 m/s^2 and jerk that is greater than 10 m/s^3.
@@ -10,13 +13,13 @@ In this project your goal is to safely navigate around a virtual highway with ot
 
 I got this simple idea of dividing the space around the ego vehicle as phone dial sections
 
-![aslt text](https://drive.google.com/file/d/1Vbq6x-igf2J5AI5PJvu2YCt2xnHWaEto/view?usp=sharing "iphone dial"))
+![iphone dial](IMG_7625.PNG))
 
 
 5 being the ego vehicle is at the center and is surrounded by 1 which represents front-left area, 2 representing the area ahead, 3 for the front-right, and so on. 
 
 
-In this code only 1,2,3,5,7 and 9 areas were used
+In this code only 1,2,3,5,7 and 9 areas were used:
 
 
 
@@ -28,7 +31,7 @@ So the gap to be minded is the distance that the vehicles Two-sa travels in one 
 
 
 
-![alt text](https://docs.google.com/drawings/d/1fctJinYRpaU7-t3dvaOw6OoXxOFUyhqhD58zqAg2dd8/edit?usp=sharing "Parameters"  )
+![speed](HighWay11.jpg)
 
 
 When ego vehicle (Five) is within a gap distance of the gap, it varies it speed according to the speed difference of the vehicles ((Two-sa-v - Five-v)/Two-sa-v)
