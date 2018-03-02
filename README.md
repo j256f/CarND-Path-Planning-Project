@@ -10,7 +10,7 @@ In this project your goal is to safely navigate around a virtual highway with ot
 
 I got this simple idea of dividing the space around the ego vehicle as phone dial sections
 
-![iphone dial](https://drive.google.com/file/d/1Vbq6x-igf2J5AI5PJvu2YCt2xnHWaEto/view?usp=sharing))
+![aslt text](https://drive.google.com/file/d/1Vbq6x-igf2J5AI5PJvu2YCt2xnHWaEto/view?usp=sharing "iphone dial"))
 
 
 5 being the ego vehicle is at the center and is surrounded by 1 which represents front-left area, 2 representing the area ahead, 3 for the front-right, and so on. 
@@ -28,7 +28,7 @@ So the gap to be minded is the distance that the vehicles Two-sa travels in one 
 
 
 
-![speed](https://docs.google.com/drawings/d/1fctJinYRpaU7-t3dvaOw6OoXxOFUyhqhD58zqAg2dd8/edit?usp=sharing)
+![alt text](https://docs.google.com/drawings/d/1fctJinYRpaU7-t3dvaOw6OoXxOFUyhqhD58zqAg2dd8/edit?usp=sharing "Parameters"  )
 
 
 When ego vehicle (Five) is within a gap distance of the gap, it varies it speed according to the speed difference of the vehicles ((Two-sa-v - Five-v)/Two-sa-v)
