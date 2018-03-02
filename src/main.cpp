@@ -242,7 +242,7 @@ int main() {
           	double Five_s = j[1]["s"];
           	double Five_d = j[1]["d"];
           	double Five_yaw = j[1]["yaw"];
-          	double car_x_speed = j[1]["speed"];
+          	double Five_v = j[1]["speed"];
 
                 //double car_a_speed = .0;
                 //double Two_sa_s = 0.0;
@@ -1065,25 +1065,39 @@ int main() {
                 }
 
                 
-  
+                /// Speed Controller     
+
+                // Get the velocity and position of vehicle in front of Five
                 double Two_sa_vx = Two_s_abc[0][3];
                 double Two_sa_vy = Two_s_abc[0][4];
-                double Two_sa_v  = sqrt(Two_sa_vx*Two_sa_vx+Two_sa_vy*Two_sa_vy);
-                double Two_sa_s  = Two_s_abc[0][5];
+                double Two_sa_v  = sqrt(Two_sa_vx*Two_sa_vx+Two_sa_vy*Two_sa_vy); // velocity
+                double Two_sa_s  = Two_s_abc[0][5]; // position 
                 
-                // gap that a vehicle following car a should keep  
+                // Mind the gap 
+
+                // Gap at rear of Two_sa (vehicle in front of Five) that should be kept  
                 
-                double Two_sa_gap = Two_sa_v * 0.4697 * 2.0 ; // 2 seconds in distance
+                // the gaps depends on speed (Two_sa_v) 
+                double Two_sa_gap = Two_sa_v * 0.4697 * 1 ; // 1 seconds in distance
                 double Two_sa_rear = Two_sa_s - Two_sa_gap; // s where should Five_s should be   
                 double FiveOverTwo_saRear = Two_sa_rear - Five_s; // overlap of Five over Two_sa_rear
+                double  maxAcc = 0.2;
+                double maxVel = 49.8;
+                double FiveAcc = 0;
 
-                // set ref_vel so that vehicle oscillates 15 meters around gap          
+
+                // set ref_vel so that vehicle oscillates around gap          
        
-                if (((Two_sa_rear == 0) && (ref_vel <45)) || ((FiveOverTwo_saRear > 20)&&(ref_vel<45))) 
-                    ref_vel += 0.1;
-                else if (FiveOverTwo_saRear < 20) ref_vel += (0.1 * FiveOverTwo_saRear/20); 
+                if (((Two_sa_rear == 0) && (ref_vel < maxVel)) || ((FiveOverTwo_saRear > (2*Two_sa_gap)) && (ref_vel < maxVel))) 
+                    FiveAcc = maxAcc;
+                else if ((FiveOverTwo_saRear < Two_sa_gap)&&(Two_sa_gap!=0)) 
+                    FiveAcc = 0.3 * maxAcc * ((Two_sa_v - Five_v)/Two_sa_v); 
                 
+                
+                ref_vel += FiveAcc;  
 
+                // Planner
+  
                 // Determine which lane is best
 
 
