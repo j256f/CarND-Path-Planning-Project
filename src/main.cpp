@@ -213,11 +213,11 @@ int main() {
 
   // Start in Lane # 1
   int lane = 1;        
-
+  int proplane = 1;
   // velocity set point       
   double ref_vel = .0; // mph
 
-  h.onMessage([&lane,&map_waypoints_x,&map_waypoints_y,&map_waypoints_s,&map_waypoints_dx,&map_waypoints_dy,&ref_vel](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
+  h.onMessage([&proplane,&lane,&map_waypoints_x,&map_waypoints_y,&map_waypoints_s,&map_waypoints_dx,&map_waypoints_dy,&ref_vel](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
                      uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
@@ -281,7 +281,7 @@ int main() {
 
 
                 // Get OneTwoThree from sensor_fusion
-                // a vector of vectors with all vehicles within 400 meters ahead
+                // a vector of vectors with all vehicles within 300 meters ahead
 
                 vector<vector<double>> OneTwoThree = j[1]["sensor_fusion"];
                      
@@ -298,7 +298,7 @@ int main() {
                     OneTwoThree[i][5] = 0.0;
                     OneTwoThree[i][6] = 0.0;
                     
-                    if (((sensor_fusion[i][5] - Five_s) < 400.0) && ((sensor_fusion[i][5] - Five_s) > 0))
+                    if (((sensor_fusion[i][5] - Five_s) < 300.0) && ((sensor_fusion[i][5] - Five_s) > 0))
                         {
                                          
                         OneTwoThree[p][0] = sensor_fusion[i][0];
@@ -315,7 +315,7 @@ int main() {
 
 
                 // Get SevenNine from sensor_fusion
-                // a vector of vectors with all vehicles within 400 meters behind
+                // a vector of vectors with all vehicles within 300 meters behind
 
 
 
@@ -334,7 +334,7 @@ int main() {
                     SevenNine[i][5] = 0.0;
                     SevenNine[i][6] = 0.0;
                     
-                    if (((Five_s - sensor_fusion[i][5]) < 400.0) && ((Five_s - sensor_fusion[i][5]) > 0))
+                    if (((Five_s - sensor_fusion[i][5]) < 300.0) && ((Five_s - sensor_fusion[i][5]) > 0))
                         {
                                          
                         SevenNine[p][0] = sensor_fusion[i][0];
@@ -351,7 +351,7 @@ int main() {
 
 
                 // Get One from OneTwoThree
-                // a vector of vectors with all vehicles at 400 meters ahead and on left lane
+                // a vector of vectors with all vehicles at 300 meters ahead and on left lane
 
                 vector<vector<double>> One = j[1]["sensor_fusion"];
                      
@@ -367,7 +367,7 @@ int main() {
                     One[i][5] = 0.0;
                     One[i][6] = 0.0;
                     
-                    if ((-OneTwoThree[i][6] + Five_d) > 2.0)
+                    if (((-OneTwoThree[i][6] + Five_d) > 2.0) && ((-OneTwoThree[i][6] + Five_d) < 6.0)) 
                         {                         
                         One[p][0] = OneTwoThree[i][0];
                         One[p][1] = OneTwoThree[i][1];
@@ -389,7 +389,7 @@ int main() {
                 //cout << "One4= "<< One[4][5] << "s  " << One[4][6] << "d " << endl;
                 
                 // Get Two from OneTwoThree
-                // a vector of vectors with all vehicles at 400 meters ahead and on same lane
+                // a vector of vectors with all vehicles at 300 meters ahead and on same lane
 
                 vector<vector<double>> Two = j[1]["sensor_fusion"];
                      
@@ -421,7 +421,7 @@ int main() {
 
                
                 // Get Three from OneTwoThree
-                // a vector of vectors with all vehicles at 400 meters ahead and on rigth lane
+                // a vector of vectors with all vehicles at 300 meters ahead and on rigth lane
 
                 vector<vector<double>> Three = j[1]["sensor_fusion"];
                      
@@ -437,7 +437,7 @@ int main() {
                     Three[i][5] = 0.0;
                     Three[i][6] = 0.0;
                     
-                    if ((OneTwoThree[i][6] - Five_d) > 2.0)
+                    if (((OneTwoThree[i][6] - Five_d) > 2.0) && ((OneTwoThree[i][6] - Five_d) < 6.0)) 
                         {                         
                         Three[p][0] = OneTwoThree[i][0];
                         Three[p][1] = OneTwoThree[i][1];
@@ -461,7 +461,7 @@ int main() {
 
 
                 // Get Seven from SevenNine
-                // a vector of vectors with all vehicles at 400 meters behind and on left lane
+                // a vector of vectors with all vehicles at 300 meters behind and on left lane
 
                 vector<vector<double>> Seven = j[1]["sensor_fusion"];
                      
@@ -477,7 +477,7 @@ int main() {
                     Seven[i][5] = 0.0;
                     Seven[i][6] = 0.0; 
  
-                    if ((-SevenNine[i][6] + Five_d) > 2.0)
+                    if (((-SevenNine[i][6] + Five_d) > 2.0) && ((-SevenNine[i][6] + Five_d) < 6.0)) 
                         {                         
                         Seven[p][0] = SevenNine[i][0];
                         Seven[p][1] = SevenNine[i][1];
@@ -499,7 +499,7 @@ int main() {
                 //cout << "Seven= "<< Seven[4][5] << "s  " << Seven[4][6] << "d " << endl;
 
                 // Get Ninefrom SevenNine
-                // a vector of vectors with all vehicles at 400 meters behind and on right lane
+                // a vector of vectors with all vehicles at 300 meters behind and on right lane
 
                 vector<vector<double>> Nine= j[1]["sensor_fusion"];
                      
@@ -515,7 +515,7 @@ int main() {
                     Nine[i][5] = 0.0;
                     Nine[i][6] = 0.0;
                     
-                    if ((SevenNine[i][6] - Five_d) > 2.0)
+                    if (((SevenNine[i][6] - Five_d) > 2.0) && (((SevenNine[i][6] - Five_d) < 6.0))) 
                         {                         
                         Nine[p][0] = SevenNine[i][0];
                         Nine[p][1] = SevenNine[i][1];
@@ -1124,20 +1124,23 @@ int main() {
                 //if ((Two_s_abc[0][5]-Five_s)>40) Two_val += 0.4;
                 //if ((Three_s_abc[0][5]-Five_s)>40) Three_val += 0.4;            
                 // another way for the third best?
-                if (One_s_abc[0][5] !=0) One_val += ((One_s_abc[0][5]-Five_s)/380)*0.4;
-                if (Two_s_abc[0][5] !=0) Two_val += ((Two_s_abc[0][5]-Five_s)/380)*0.4;
-                if (Three_s_abc[0][5] !=0) Three_val += ((Three_s_abc[0][5]-Five_s)/380)*0.4;
+                if (One_s_abc[0][5] !=0) One_val += ((One_s_abc[0][5]-Five_s)/300)*0.4;
+                if (Two_s_abc[0][5] !=0) Two_val += ((Two_s_abc[0][5]-Five_s)/300)*0.4;
+                if (Three_s_abc[0][5] !=0) Three_val += ((Three_s_abc[0][5]-Five_s)/300)*0.4;
 
                 // The plausible lane is the one that might be taken safetely
-                if (((One_s_abc[0][5]-Five_s) < 30)||((Five_s - Seven_s_abc[0][5]) < 90)) One_val += -1;
-                if (((Three_s_abc[0][5]-Five_s) < 30)||((Five_s - Nine_s_abc[0][5]) < 90)) Three_val += -1;
+                if ((abs(One_s_abc[0][5]-Five_s) < 10)||((Five_s - Seven_s_abc[0][5]) < 35)) One_val += -1;
+                if ((abs(Three_s_abc[0][5]-Five_s) < 10)||((Five_s - Nine_s_abc[0][5]) < 35)) Three_val += -1;
 
+                //cout << "    Three_s_abc[0][5]-Five_s = " << Three_s_abc[0][5]-Five_s << endl;  
+                //cout << "    Five_s - Nine_s_abc[0][5] = " << Five_s - Nine_s_abc[0][5] << endl;
 
+                //cout << "    One_s_abc[0][5]-Five_s = " << One_s_abc[0][5]-Five_s << endl;  
+                //cout << "    Five_s - Seven_s_abc[0][5] = " << Five_s - Seven_s_abc[0][5] << endl;
 
-
-                cout << "One_val = " << One_val << endl;
-                cout << "Two_val = " << Two_val << endl;
-                cout << "Three_val = " << Three_val << endl;                   
+                //cout << "One_val = " << One_val << endl;
+                //cout << "Two_val = " << Two_val << endl;
+                //cout << "Three_val = " << Three_val << endl;                   
 
 
 
@@ -1157,24 +1160,34 @@ int main() {
                 // What makes 5 change to lane1 if current Lane is 0?
                 //    what should make me stay? 
 
-                if ((lane==0) && (Three_val > Two_val)) lane = 1;
+                int Five_lane = 0;
+
+                if ((Five_d > 0) && (Five_d < 4)) Five_lane = 0;
+                else if ((Five_d > 4) && (Five_d < 8)) Five_lane = 1;
+                else if ((Five_d > 8 ) && (Five_d < 12)) Five_lane = 2; 
+ 
+
+                if ((Five_lane==0) && (Three_val > Two_val)) lane = 1;
 
                   
 
                 // What makes 5 change to lane0 or lane2 if curent Lane is 1?                
 
-                if ((lane==1) && (One_val > Two_val) && (One_val>Three_val)) lane = 0;
-                else if ((lane==1) && (One_val != 0) && (One_val > Two_val) && (Three_val > Two_val) && (One_val == Three_val)) lane = 0;
-                else if ((lane==1) && (Three_val>Two_val) && (Three_val > One_val)) lane = 2;                            
+                if ((Five_lane == 1) && (One_val > Two_val) && (One_val > Three_val) && (One_val > 0)) lane = 0;
+                //else if ((lane==1) && (One_val != 0) && (One_val > Two_val) && (Three_val > Two_val) && (One_val == Three_val)) proplane = 0;
+                if ((Five_lane == 1) && (Three_val > Two_val) && (Three_val > One_val) && (Three_val >0)) lane = 2;                            
 
                 // What makes 5 to change to lane1 if current Lane is 2?                   
 
-                if ((lane == 2) && (One_val > Two_val)) lane = 1;
+                if ((Five_lane == 2) && (One_val > Two_val)) lane = 1;
            
 
                 
+                //cout << "FIVE_LANE " << Five_lane << endl;
 
-                cout << "LANE " << lane << endl; 
+
+
+                //cout << "LANE " << lane << endl; 
 
 
 

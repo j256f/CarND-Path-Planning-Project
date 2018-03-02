@@ -23,6 +23,7 @@ I got this simple idea of dividing the space around the ego vehicle as phone dia
 
 In this code only the following areas were used:
 
+Here|There|There
 -|-|-
 1|2|3
 |5|
@@ -30,6 +31,7 @@ In this code only the following areas were used:
 
 namely:
 
+Here|There|There
 -|-|-
 400 mts ahead of left lane|400 mts ahead on same lane as ego vehicle|400 mts ahead of right lane
 |ego vehicle|
